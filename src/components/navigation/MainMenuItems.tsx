@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useConfig } from '../contexts/ConfigContext';
+import { useConfig } from '../../contexts/ConfigContext';
 
 export function MainDesktopMenu() {
   const location = useLocation();

@@ -5,7 +5,7 @@ import { type User, deleteUser } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import Message from './Message';
+import Message from './common/Message';
 import { useConfig } from '../contexts/ConfigContext';
 
 const DeleteAccount: React.FC = () => {

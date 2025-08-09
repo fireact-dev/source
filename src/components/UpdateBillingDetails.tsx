@@ -8,7 +8,7 @@ import {
   useElements,
 } from '@stripe/react-stripe-js';
 import type { StripeElementLocale } from '@stripe/stripe-js';
-import Message from './Message';
+import Message from './common/Message';
 import { useConfig } from '../contexts/ConfigContext';
 import { useSubscription } from '../contexts/SubscriptionContext';
 import { httpsCallable } from 'firebase/functions';

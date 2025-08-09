@@ -9,8 +9,8 @@ import {
   AddressElement
 } from '@stripe/react-stripe-js';
 import type { StripeElementLocale } from '@stripe/stripe-js';
-import { useConfig } from '../contexts/ConfigContext';
-import type { Plan } from '../types';
+import { useConfig } from '../../contexts/ConfigContext';
+import type { Plan } from '../../types';
 
 interface ExtendedConfig {
     stripe: {

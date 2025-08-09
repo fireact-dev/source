@@ -4,7 +4,7 @@ import { applyActionCode } from 'firebase/auth';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { useConfig } from '../../contexts/ConfigContext';
-import Message from '../Message';
+import Message from '../common/Message';
 
 interface EmailVerificationProps {
   oobCode: string;

@@ -3,7 +3,7 @@ import { getFunctions, httpsCallable } from 'firebase/functions';
 import { getApp } from 'firebase/app';
 import { FirebaseError } from 'firebase/app';
 import { useState } from 'react';
-import Message from './Message';
+import Message from './common/Message';
 import { useConfig } from '../contexts/ConfigContext';
 import { type UserDetails } from '../types';
 import EditPermissionsModal from './EditPermissionsModal';

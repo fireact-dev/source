@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import EmailVerification from './auth/EmailVerification';
 import PasswordReset from './auth/PasswordReset';
 import EmailChange from './auth/EmailChange';
-import Message from './Message';
+import Message from './common/Message';
 
 const FirebaseAuthActions = () => {
   const [searchParams] = useSearchParams();

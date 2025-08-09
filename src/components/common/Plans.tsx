@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
-import { useConfig } from '../contexts/ConfigContext';
-import type { Plan } from '../types';
+import { useConfig } from '../../contexts/ConfigContext';
+import type { Plan } from '../../types';
 
 interface PlansProps {
   onPlanSelect: (plan: Plan) => void;

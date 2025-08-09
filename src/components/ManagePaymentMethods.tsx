@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { httpsCallable } from 'firebase/functions';
-import Message from './Message';
+import Message from './common/Message';
 import { useConfig } from '../contexts/ConfigContext';
 import { useSubscription } from '../contexts/SubscriptionContext';
 import { loadStripe } from '@stripe/stripe-js';

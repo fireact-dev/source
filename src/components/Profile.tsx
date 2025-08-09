@@ -4,10 +4,10 @@ import { useTranslation } from 'react-i18next';
 import { doc, getDoc } from 'firebase/firestore';
 import { sendEmailVerification } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
-import Avatar from './Avatar';
-import { type UserData } from './Dashboard';
+import Avatar from './common/Avatar';
+import { type UserData } from '../types';
 import { Link } from 'react-router-dom';
-import Message from './Message';
+import Message from './common/Message';
 import { useConfig } from '../contexts/ConfigContext';
 
 export default function Profile() {

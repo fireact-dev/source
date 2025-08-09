@@ -1,5 +1,5 @@
 import React from 'react';
-import { type UserData } from './Dashboard';
+import { type UserData } from '../../types';
 
 interface AvatarProps {
   userData: UserData | null;

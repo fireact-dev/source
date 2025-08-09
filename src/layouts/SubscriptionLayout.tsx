@@ -3,10 +3,10 @@ import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from '../components/LanguageSwitcher'
-import Avatar from '../components/Avatar'
+import Avatar from '../components/common/Avatar'
 import { Outlet } from 'react-router-dom';
 import { doc, getDoc } from 'firebase/firestore';
-import PrivateRoute from '../components/PrivateRoute';
+import PrivateRoute from '../components/navigation/PrivateRoute';
 import { useConfig } from '../contexts/ConfigContext';
 
 // Define UserData type to match core package

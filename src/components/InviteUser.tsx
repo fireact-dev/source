@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { getFunctions, httpsCallable } from 'firebase/functions';
 import { FirebaseError } from 'firebase/app';
 import { getApp } from 'firebase/app';
-import Message from './Message';
+import Message from './common/Message';
 import { useConfig } from '../contexts/ConfigContext';
 import { useNavigate } from 'react-router-dom';
 

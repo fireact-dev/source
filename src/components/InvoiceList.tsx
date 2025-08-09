@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import Message from './Message';
+import Message from './common/Message';
 import { useSubscription } from '../contexts/SubscriptionContext';
 import InvoiceTable from './InvoiceTable';
-import Pagination from './Pagination';
+import Pagination from './common/Pagination';
 import { getFirestore, collection, query, orderBy, limit, getDocs } from 'firebase/firestore';
 import type { Invoice } from '../types';
 

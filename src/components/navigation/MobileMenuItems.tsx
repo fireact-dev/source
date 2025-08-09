@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
-import { useConfig } from '../contexts/ConfigContext';
+import { useConfig } from '../../contexts/ConfigContext';
 
 export default function MobileMenuItems() {
   const { t } = useTranslation();

@@ -2,10 +2,10 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { httpsCallable } from 'firebase/functions';
-import Message from './Message';
+import Message from './common/Message';
 import { useConfig } from '../contexts/ConfigContext';
-import Plans from './Plans';
-import BillingForm from './BillingForm';
+import Plans from './common/Plans';
+import BillingForm from './common/BillingForm';
 import { type Plan } from '../types';
 import { useSubscription } from '../contexts/SubscriptionContext';
 

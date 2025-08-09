@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { getFunctions, httpsCallable } from 'firebase/functions';
 import { getApp } from 'firebase/app';
 import { FirebaseError } from 'firebase/app';
-import Message from './Message';
+import Message from './common/Message';
 import { useConfig } from '../contexts/ConfigContext';
 import type { UserDetails } from '../types';
 

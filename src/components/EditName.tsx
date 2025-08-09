@@ -5,7 +5,7 @@ import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { type User, updateProfile } from 'firebase/auth';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import Message from './Message';
+import Message from './common/Message';
 import { useConfig } from '../contexts/ConfigContext';
 
 const EditName: React.FC = () => {

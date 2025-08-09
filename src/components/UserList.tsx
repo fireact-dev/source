@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { getFunctions, httpsCallable } from 'firebase/functions';
 import { getApp } from 'firebase/app';
-import Message from './Message';
+import Message from './common/Message';
 import { useConfig } from '../contexts/ConfigContext';
 import { useSubscription } from '../contexts/SubscriptionContext';
 import { Link } from 'react-router-dom';
 import UserTable from './UserTable';
-import Pagination from './Pagination';
+import Pagination from './common/Pagination';
 import { type UserDetails } from '../types';
 
 interface ExtendedConfig {

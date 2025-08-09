@@ -11,6 +11,13 @@ export interface Plan {
     legacy: boolean;
 }
 
+export interface UserData {
+  display_name: string;
+  create_time: any;
+  email: string;
+  avatar_url: string | null;
+}
+
 // Generic type for user permissions
 export type UserPermissions = Record<string, string[]>;
 
@@ -93,18 +100,6 @@ export interface InvoiceListResponse {
 
 export interface StripeConfig {
     public_api_key: string;
-}
-
-declare module '@fireact.dev/core' {
-    interface ConfigContextType {
-        stripe: {
-            public_api_key: string;
-        };
-    }
-
-    interface User {
-        permissions?: UserPermissions;
-    }
 }
 
 // Need to augment the auth module to recognize our custom claims
