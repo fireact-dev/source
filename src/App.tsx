@@ -17,7 +17,7 @@ import PublicLayout from './layouts/PublicLayout';
 import DesktopMenuItems from './components/DesktopMenuItems';
 import MobileMenuItems from './components/MobileMenuItems';
 import Logo from './components/Logo';
-import config from './config/config.json';
+import appConfig from './config/app.config.json';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
@@ -46,7 +46,7 @@ i18n
 function App() {
   return (
     <Router>
-      <ConfigProvider config={config}>
+      <ConfigProvider>
         <AuthProvider>
           <LoadingProvider>
             <Routes>
@@ -57,19 +57,19 @@ function App() {
                   logo={<Logo className="w-10 h-10" />}
                 />
               }>
-                <Route path={config.pages.home} element={<Navigate to={config.pages.dashboard} />} />
-                <Route path={config.pages.dashboard} element={<Dashboard />} />
-                <Route path={config.pages.profile} element={<Profile />} />
-                <Route path={config.pages.editName} element={<EditName />} />
-                <Route path={config.pages.editEmail} element={<EditEmail />} />
-                <Route path={config.pages.changePassword} element={<ChangePassword />} />
-                <Route path={config.pages.deleteAccount} element={<DeleteAccount />} />
+                <Route path={appConfig.pages.home} element={<Navigate to={appConfig.pages.dashboard} />} />
+                <Route path={appConfig.pages.dashboard} element={<Dashboard />} />
+                <Route path={appConfig.pages.profile} element={<Profile />} />
+                <Route path={appConfig.pages.editName} element={<EditName />} />
+                <Route path={appConfig.pages.editEmail} element={<EditEmail />} />
+                <Route path={appConfig.pages.changePassword} element={<ChangePassword />} />
+                <Route path={appConfig.pages.deleteAccount} element={<DeleteAccount />} />
               </Route>
               <Route element={<PublicLayout logo={<Logo className="w-20 h-20" />} />}>
-                <Route path={config.pages.signIn} element={<SignIn />} />
-                <Route path={config.pages.signUp} element={<SignUp />} />
-                <Route path={config.pages.resetPassword} element={<ResetPassword />} />
-                <Route path={config.pages.firebaseActions} element={<FirebaseAuthActions />} />
+                <Route path={appConfig.pages.signIn} element={<SignIn />} />
+                <Route path={appConfig.pages.signUp} element={<SignUp />} />
+                <Route path={appConfig.pages.resetPassword} element={<ResetPassword />} />
+                <Route path={appConfig.pages.firebaseActions} element={<FirebaseAuthActions />} />
               </Route>
             </Routes>
           </LoadingProvider>

@@ -4,64 +4,75 @@ import { getAuth, type Auth, connectAuthEmulator } from 'firebase/auth';
 import { getFirestore, type Firestore, connectFirestoreEmulator } from 'firebase/firestore';
 import { getFunctions, type Functions, connectFunctionsEmulator } from 'firebase/functions';
 
+import firebaseConfig from '../config/firebase.config.json';
+import appConfig from '../config/app.config.json';
+
+interface FirebaseConfig {
+  apiKey: string;
+  authDomain: string;
+  projectId: string;
+  storageBucket: string;
+  messagingSenderId: string;
+  appId: string;
+}
+
+interface SocialLoginConfig {
+  google: boolean;
+  microsoft: boolean;
+  facebook: boolean;
+  apple: boolean;
+  github: boolean;
+  twitter: boolean;
+  yahoo: boolean;
+}
+
+interface PagesConfig extends Record<string, string> {}
+
+interface EmulatorsConfig {
+  enabled: boolean;
+  host: string;
+  ports: {
+    functions: number;
+    firestore: number;
+    auth: number;
+    hosting: number;
+  };
+}
+
+interface AppConfig {
+  name: string;
+  socialLogin: SocialLoginConfig;
+  pages: PagesConfig;
+  emulators?: EmulatorsConfig;
+}
+
 interface ConfigContextType {
-  firebase: {
-    apiKey: string;
-    authDomain: string;
-    projectId: string;
-    storageBucket: string;
-    messagingSenderId: string;
-    appId: string;
-  };
-  socialLogin: {
-    google: boolean;
-    microsoft: boolean;
-    facebook: boolean;
-    apple: boolean;
-    github: boolean;
-    twitter: boolean;
-    yahoo: boolean;
-  };
-  pages: Record<string, string>;
+  firebase: FirebaseConfig;
+  socialLogin: SocialLoginConfig;
+  pages: PagesConfig;
   auth: Auth;
   db: Firestore;
   functions: Functions;
   name: string;
-  emulators?: {
-    enabled: boolean;
-    host: string;
-    ports: {
-      functions: number;
-      firestore: number;
-      auth: number;
-      hosting: number;
-    };
-  };
+  emulators?: EmulatorsConfig;
 }
 
 const ConfigContext = createContext<ConfigContextType | undefined>(undefined);
 
 interface ConfigProviderProps {
-  config: {
-    firebase: ConfigContextType['firebase'];
-    socialLogin: ConfigContextType['socialLogin'];
-    pages: ConfigContextType['pages'];
-    name: string;
-    emulators?: ConfigContextType['emulators'];
-  };
   children: ReactNode;
 }
 
-export function ConfigProvider({ config, children }: ConfigProviderProps) {
+export function ConfigProvider({ children }: ConfigProviderProps) {
   // Initialize Firebase
-  const app = initializeApp(config.firebase);
+  const app = initializeApp(firebaseConfig.firebase);
   
   // Initialize Auth and connect to emulator if enabled
   const auth = getAuth(app);
-  if (config.emulators?.enabled) {
+  if (appConfig.emulators?.enabled) {
     try {
-      const host = config.emulators.host;
-      const ports = config.emulators.ports;
+      const host = appConfig.emulators.host;
+      const ports = appConfig.emulators.ports;
       connectAuthEmulator(auth, `http://${host}:${ports.auth}`, { disableWarnings: true });
     } catch (error) {
       console.error('Error connecting to Auth emulator:', error);
@@ -70,10 +81,10 @@ export function ConfigProvider({ config, children }: ConfigProviderProps) {
 
   // Initialize Firestore and connect to emulator if enabled
   const db = getFirestore(app);
-  if (config.emulators?.enabled) {
+  if (appConfig.emulators?.enabled) {
     try {
-      const host = config.emulators.host;
-      const ports = config.emulators.ports;
+      const host = appConfig.emulators.host;
+      const ports = appConfig.emulators.ports;
       connectFirestoreEmulator(db, host, ports.firestore);
     } catch (error) {
       console.error('Error connecting to Firestore emulator:', error);
@@ -82,10 +93,10 @@ export function ConfigProvider({ config, children }: ConfigProviderProps) {
 
   // Initialize Functions and connect to emulator if enabled
   const functions = getFunctions(app);
-  if (config.emulators?.enabled) {
+  if (appConfig.emulators?.enabled) {
     try {
-      const host = config.emulators.host;
-      const ports = config.emulators.ports;
+      const host = appConfig.emulators.host;
+      const ports = appConfig.emulators.ports;
       connectFunctionsEmulator(functions, host, ports.functions);
     } catch (error) {
       console.error('Error connecting to Functions emulator:', error);
@@ -93,11 +104,14 @@ export function ConfigProvider({ config, children }: ConfigProviderProps) {
   }
 
   const value: ConfigContextType = {
-    ...config,
+    firebase: firebaseConfig.firebase,
+    socialLogin: appConfig.socialLogin,
+    pages: appConfig.pages,
     auth,
     db,
     functions,
-    name: config.name
+    name: appConfig.name,
+    emulators: appConfig.emulators
   };
 
   return (

@@ -1,0 +1,35 @@
+{
+  "name": "Fireact",
+  "socialLogin": {
+    "google": true,
+    "microsoft": false,
+    "facebook": false,
+    "apple": false,
+    "github": false,
+    "twitter": false,
+    "yahoo": false
+  },
+  "pages": {
+    "home": "/",
+    "dashboard": "/dashboard",
+    "profile": "/profile",
+    "editName": "/edit-name",
+    "editEmail": "/edit-email",
+    "changePassword": "/change-password",
+    "deleteAccount": "/delete-account",
+    "signIn": "/signin",
+    "signUp": "/signup",
+    "resetPassword": "/reset-password",
+    "firebaseActions": "/auth/action"
+  },
+  "emulators": {
+    "enabled": false,
+    "host": "localhost",
+    "ports": {
+      "functions": 5001,
+      "firestore": 8080,
+      "auth": 9099,
+      "hosting": 5000
+    }
+  }
+}
