@@ -39,10 +39,29 @@ interface EmulatorsConfig {
   };
 }
 
+interface PermissionsConfig {
+  access: {
+    label: string;
+    default: boolean;
+    admin: boolean;
+  };
+  editor: {
+    label: string;
+    default: boolean;
+    admin: boolean;
+  };
+  admin: {
+    label: string;
+    default: boolean;
+    admin: boolean;
+  };
+}
+
 interface AppConfig {
   name: string;
   socialLogin: SocialLoginConfig;
   pages: PagesConfig;
+  permissions: PermissionsConfig;
   emulators?: EmulatorsConfig;
 }
 
@@ -50,6 +69,7 @@ interface ConfigContextType {
   firebase: FirebaseConfig;
   socialLogin: SocialLoginConfig;
   pages: PagesConfig;
+  permissions: PermissionsConfig;
   auth: Auth;
   db: Firestore;
   functions: Functions;
@@ -107,6 +127,7 @@ export function ConfigProvider({ children }: ConfigProviderProps) {
     firebase: firebaseConfig.firebase,
     socialLogin: appConfig.socialLogin,
     pages: appConfig.pages,
+    permissions: appConfig.permissions,
     auth,
     db,
     functions,

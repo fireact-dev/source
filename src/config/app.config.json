@@ -20,7 +20,43 @@
     "signIn": "/signin",
     "signUp": "/signup",
     "resetPassword": "/reset-password",
-    "firebaseActions": "/auth/action"
+    "firebaseActions": "/auth/action",
+    "billing": "/subscription/:id/billing",
+    "createPlan": "/create-plan",
+    "subscription": "/subscription/:id",
+    "users": "/subscription/:id/users",
+    "invite": "/subscription/:id/users/invite",
+    "settings": "/subscription/:id/settings",
+    "changePlan": "/subscription/:id/billing/change-plan",
+    "cancelSubscription": "/subscription/:id/billing/cancel",
+    "managePaymentMethods": "/subscription/:id/billing/payment-methods",
+    "updateBillingDetails": "/subscription/:id/billing/update-details",
+    "transferOwnership": "/subscription/:id/billing/transfer-ownership"
+  },
+  "permissions": {
+      "access": {
+          "label": "Access",
+          "default": true,
+          "admin": false
+      },
+      "editor": {
+          "label": "Editor",
+          "default": false,
+          "admin": false
+      },
+      "admin": {
+          "label": "Administrator",
+          "default": false,
+          "admin": true
+      }
+  },
+  "settings": {
+      "name": {
+          "type": "string",
+          "required": true,
+          "label": "subscription.name",
+          "placeholder": "subscription.namePlaceholder"
+      }
   },
   "emulators": {
     "enabled": false,

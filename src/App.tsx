@@ -23,8 +23,25 @@ import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import en from './i18n/en';
 import zh from './i18n/zh';
+import CreatePlan from './components/CreatePlan';
+import Home from './components/Home';
+import SubscriptionDashboard from './components/SubscriptionDashboard';
+import SubscriptionLayout from './layouts/SubscriptionLayout';
+import { SubscriptionDesktopMenu, SubscriptionMobileMenu } from './components/SubscriptionMenuItems';
+import { SubscriptionProvider } from './contexts/SubscriptionContext';
+import { MainDesktopMenu, MainMobileMenu } from './components/MainMenuItems';
+import Billing from './components/Billing';
+import SubscriptionSettings from './components/SubscriptionSettings';
+import ProtectedSubscriptionRoute from './components/ProtectedSubscriptionRoute';
+import UserList from './components/UserList';
+import InviteUser from './components/InviteUser';
+import ChangePlan from './components/ChangePlan';
+import CancelSubscription from './components/CancelSubscription';
+import ManagePaymentMethods from './components/ManagePaymentMethods';
+import UpdateBillingDetails from './components/UpdateBillingDetails';
+import TransferSubscriptionOwnership from './components/TransferSubscriptionOwnership';
 
-// Initialize i18next
+
 i18n
   .use(LanguageDetector)
   .use(initReactI18next)
@@ -52,19 +69,82 @@ function App() {
             <Routes>
               <Route element={
                 <AuthenticatedLayout 
-                  desktopMenuItems={<DesktopMenuItems />}
-                  mobileMenuItems={<MobileMenuItems />}
+                  desktopMenuItems={<MainDesktopMenu />}
+                  mobileMenuItems={<MainMobileMenu />}
                   logo={<Logo className="w-10 h-10" />}
                 />
               }>
                 <Route path={appConfig.pages.home} element={<Navigate to={appConfig.pages.dashboard} />} />
-                <Route path={appConfig.pages.dashboard} element={<Dashboard />} />
+                <Route path={appConfig.pages.dashboard} element={<Home />} />
                 <Route path={appConfig.pages.profile} element={<Profile />} />
                 <Route path={appConfig.pages.editName} element={<EditName />} />
                 <Route path={appConfig.pages.editEmail} element={<EditEmail />} />
                 <Route path={appConfig.pages.changePassword} element={<ChangePassword />} />
                 <Route path={appConfig.pages.deleteAccount} element={<DeleteAccount />} />
+                <Route path={appConfig.pages.createPlan} element={<CreatePlan />} />
               </Route>
+              
+              <Route path={appConfig.pages.subscription} element={
+                <SubscriptionProvider>
+                  <SubscriptionLayout 
+                    desktopMenu={<SubscriptionDesktopMenu />}
+                    mobileMenu={<SubscriptionMobileMenu />}
+                    logo={<Logo className="w-10 h-10" />}
+                  />
+                </SubscriptionProvider>
+              }>
+                <Route index element={
+                  <ProtectedSubscriptionRoute requiredPermissions={['access']}>
+                    <SubscriptionDashboard />
+                  </ProtectedSubscriptionRoute>
+                } />
+                <Route path={appConfig.pages.users} element={
+                  <ProtectedSubscriptionRoute requiredPermissions={['admin']}>
+                    <UserList />
+                  </ProtectedSubscriptionRoute>
+                } />
+                <Route path={appConfig.pages.invite} element={
+                  <ProtectedSubscriptionRoute requiredPermissions={['admin']}>
+                    <InviteUser />
+                  </ProtectedSubscriptionRoute>
+                } />
+                <Route path={appConfig.pages.billing} element={
+                  <ProtectedSubscriptionRoute requiredPermissions={['admin']}>
+                    <Billing />
+                  </ProtectedSubscriptionRoute>
+                } />
+                <Route path={appConfig.pages.settings} element={
+                  <ProtectedSubscriptionRoute requiredPermissions={['admin']}>
+                    <SubscriptionSettings />
+                  </ProtectedSubscriptionRoute>
+                } />
+                <Route path={appConfig.pages.changePlan} element={
+                  <ProtectedSubscriptionRoute requiredPermissions={['owner']}>
+                    <ChangePlan />
+                  </ProtectedSubscriptionRoute>
+                } />
+                <Route path={appConfig.pages.cancelSubscription} element={
+                  <ProtectedSubscriptionRoute requiredPermissions={['owner']}>
+                    <CancelSubscription />
+                  </ProtectedSubscriptionRoute>
+                } />
+                <Route path={appConfig.pages.managePaymentMethods} element={
+                  <ProtectedSubscriptionRoute requiredPermissions={['owner']}>
+                    <ManagePaymentMethods />
+                  </ProtectedSubscriptionRoute>
+                } />
+                <Route path={appConfig.pages.updateBillingDetails} element={
+                  <ProtectedSubscriptionRoute requiredPermissions={['owner']}>
+                    <UpdateBillingDetails />
+                  </ProtectedSubscriptionRoute>
+                } />
+                <Route path={appConfig.pages.transferOwnership} element={
+                  <ProtectedSubscriptionRoute requiredPermissions={['owner']}>
+                    <TransferSubscriptionOwnership />
+                  </ProtectedSubscriptionRoute>
+                } />
+              </Route>
+
               <Route element={<PublicLayout logo={<Logo className="w-20 h-20" />} />}>
                 <Route path={appConfig.pages.signIn} element={<SignIn />} />
                 <Route path={appConfig.pages.signUp} element={<SignUp />} />
