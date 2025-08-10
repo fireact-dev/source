@@ -10,13 +10,6 @@ import UserTable from './UserTable';
 import Pagination from './common/Pagination';
 import { type UserDetails } from '../types';
 
-interface ExtendedConfig {
-    pages: {
-        invite: string;
-    };
-    [key: string]: any;
-}
-
 export default function UserList() {
     const [users, setUsers] = useState<UserDetails[]>([]);
     const [loading, setLoading] = useState(true);
@@ -26,7 +19,7 @@ export default function UserList() {
     const [total, setTotal] = useState(0);
     const { t } = useTranslation();
     const { subscription } = useSubscription();
-    const config = useConfig() as unknown as ExtendedConfig;
+    const config = useConfig();
 
     const loadUsers = async () => {
         if (!subscription?.id) return;
@@ -81,7 +74,7 @@ export default function UserList() {
                         </div>
                         <div className="mt-5 sm:mt-0 sm:ml-6 sm:flex-shrink-0">
                             <Link
-                                to={config.pages.invite.replace(':id', subscription?.id || '')}
+                                to={config.appConfig.pages.invite.replace(':id', subscription?.id || '')}
                                 className="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                             >
                                 {t('subscription.invite.menuItem')}

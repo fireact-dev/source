@@ -4,31 +4,16 @@ import { useTranslation } from 'react-i18next';
 import { useConfig } from '../contexts/ConfigContext';
 import { useSubscription } from '../contexts/SubscriptionContext';
 
-interface ExtendedConfig {
-    permissions: Record<string, {
-        label: string;
-        default: boolean;
-        admin: boolean;
-    }>;
-    pages: {
-        subscription: string;
-        users: string;
-        billing: string;
-        settings: string;
-        home: string;
-    };
-    [key: string]: any;
-}
 
 export const SubscriptionDesktopMenu = () => {
   const location = useLocation();
   const { t } = useTranslation();
   const { hasPermission, subscription } = useSubscription();
-  const config = useConfig() as unknown as ExtendedConfig;
+  const config = useConfig();
   const plural = t('subscription.plural').charAt(0).toUpperCase() + t('subscription.plural').slice(1);
   
   // Find all permission keys that have admin: true
-  const adminPermissions = Object.entries(config.permissions)
+  const adminPermissions = Object.entries(config.appConfig.permissions)
     .filter(([_, value]) => value.admin)
     .map(([key]) => key);
   
@@ -36,13 +21,13 @@ export const SubscriptionDesktopMenu = () => {
   const isAdmin = adminPermissions.some(permission => hasPermission(permission));
 
   // Get base path from subscription page config
-  const basePath = config.pages.subscription.replace(':id', subscription?.id || '');
+  const basePath = config.appConfig.pages.subscription.replace(':id', subscription?.id || '');
   
   return (
     <nav className="mt-5 px-2 space-y-4">
       {/* Projects Link */}
       <Link
-        to={config.pages.home}
+        to={config.appConfig.pages.home}
         className={`group flex items-center px-2 py-2 text-base font-medium rounded-md ${
           location.pathname === config.pages.home
             ? 'bg-indigo-100 text-indigo-600'
@@ -109,7 +94,7 @@ export const SubscriptionDesktopMenu = () => {
       {isAdmin && (
         <div className="space-y-1">
           <Link
-            to={config.pages.users.replace(':id', subscription?.id || '')}
+            to={config.appConfig.pages.users.replace(':id', subscription?.id || '')}
             className={`group flex items-center px-2 py-2 text-base font-medium rounded-md ${
               location.pathname.includes('/users')
                 ? 'bg-indigo-100 text-indigo-600'
@@ -138,7 +123,7 @@ export const SubscriptionDesktopMenu = () => {
           </Link>
 
           <Link
-            to={config.pages.billing.replace(':id', subscription?.id || '')}
+            to={config.appConfig.pages.billing.replace(':id', subscription?.id || '')}
             className={`group flex items-center px-2 py-2 text-base font-medium rounded-md ${
               location.pathname.includes('/billing')
                 ? 'bg-indigo-100 text-indigo-600'
@@ -167,7 +152,7 @@ export const SubscriptionDesktopMenu = () => {
           </Link>
 
           <Link
-            to={config.pages.settings.replace(':id', subscription?.id || '')}
+            to={config.appConfig.pages.settings.replace(':id', subscription?.id || '')}
             className={`group flex items-center px-2 py-2 text-base font-medium rounded-md ${
               location.pathname.includes('/settings')
                 ? 'bg-indigo-100 text-indigo-600'
@@ -210,11 +195,11 @@ export const SubscriptionMobileMenu = () => {
   const location = useLocation();
   const { t } = useTranslation();
   const { hasPermission, subscription } = useSubscription();
-  const config = useConfig() as unknown as ExtendedConfig;
+  const config = useConfig();
   const plural = t('subscription.plural').charAt(0).toUpperCase() + t('subscription.plural').slice(1);
 
   // Find all permission keys that have admin: true
-  const adminPermissions = Object.entries(config.permissions)
+  const adminPermissions = Object.entries(config.appConfig.permissions)
     .filter(([_, value]) => value.admin)
     .map(([key]) => key);
 
@@ -222,13 +207,13 @@ export const SubscriptionMobileMenu = () => {
   const isAdmin = adminPermissions.some(permission => hasPermission(permission));
 
   // Get base path from subscription page config
-  const basePath = config.pages.subscription.replace(':id', subscription?.id || '');
+  const basePath = config.appConfig.pages.subscription.replace(':id', subscription?.id || '');
 
   return (
     <div className="space-y-4">
       {/* Projects Link */}
       <Link
-        to={config.pages.home}
+        to={config.appConfig.pages.home}
         className={`group flex items-center px-2 py-2 text-base font-medium rounded-md ${
           location.pathname === config.pages.home
             ? 'bg-indigo-100 text-indigo-600'
@@ -295,7 +280,7 @@ export const SubscriptionMobileMenu = () => {
       {isAdmin && (
         <div className="space-y-1">
           <Link
-            to={config.pages.users.replace(':id', subscription?.id || '')}
+            to={config.appConfig.pages.users.replace(':id', subscription?.id || '')}
             className={`group flex items-center px-2 py-2 text-base font-medium rounded-md ${
               location.pathname.includes('/users')
                 ? 'bg-indigo-100 text-indigo-600'
@@ -324,7 +309,7 @@ export const SubscriptionMobileMenu = () => {
           </Link>
 
           <Link
-            to={config.pages.billing.replace(':id', subscription?.id || '')}
+            to={config.appConfig.pages.billing.replace(':id', subscription?.id || '')}
             className={`group flex items-center px-2 py-2 text-base font-medium rounded-md ${
               location.pathname.includes('/billing')
                 ? 'bg-indigo-100 text-indigo-600'
@@ -353,7 +338,7 @@ export const SubscriptionMobileMenu = () => {
           </Link>
 
           <Link
-            to={config.pages.settings.replace(':id', subscription?.id || '')}
+            to={config.appConfig.pages.settings.replace(':id', subscription?.id || '')}
             className={`group flex items-center px-2 py-2 text-base font-medium rounded-md ${
               location.pathname.includes('/settings')
                 ? 'bg-indigo-100 text-indigo-600'

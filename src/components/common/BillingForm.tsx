@@ -12,12 +12,6 @@ import type { StripeElementLocale } from '@stripe/stripe-js';
 import { useConfig } from '../../contexts/ConfigContext';
 import type { Plan } from '../../types';
 
-interface ExtendedConfig {
-    stripe: {
-        public_api_key: string;
-    };
-    [key: string]: any;
-}
 
 let stripePromise: Promise<any> | null = null;
 
@@ -180,12 +174,12 @@ function CheckoutForm({ plan, onSubmit }: { plan: Plan; onSubmit: BillingFormPro
 
 export default function BillingForm({ plan, onSubmit }: BillingFormProps) {
   const { i18n } = useTranslation();
-  const config = useConfig() as unknown as ExtendedConfig;
+  const config = useConfig();
   console.log('Rendering BillingForm with plan:', plan);
 
   // Initialize Stripe only once
   if (!stripePromise) {
-    stripePromise = loadStripe(config.stripe.public_api_key);
+    stripePromise = loadStripe(config.appConfig.stripe?.public_api_key || '');
   }
 
   const options = {

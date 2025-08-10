@@ -13,12 +13,6 @@ import {
     useElements
 } from '@stripe/react-stripe-js';
 
-interface ExtendedConfig {
-    stripe: {
-        public_api_key: string;
-    };
-    [key: string]: any;
-}
 
 interface PaymentMethod {
     id: string;
@@ -139,9 +133,8 @@ export default function ManagePaymentMethods() {
     const { t } = useTranslation();
     const navigate = useNavigate();
     const { subscription } = useSubscription();
-    const { functions } = useConfig();
-    const config = useConfig() as unknown as ExtendedConfig;
-    const stripePromise = loadStripe(config.stripe.public_api_key);
+    const config = useConfig();
+    const stripePromise = loadStripe(config.appConfig.stripe?.public_api_key || '');
 
     const fetchPaymentMethods = async () => {
         if (!subscription) return;
@@ -150,7 +143,7 @@ export default function ManagePaymentMethods() {
             setLoading(true);
             setError(null);
 
-            const getPaymentMethodsFn = httpsCallable(functions, 'getPaymentMethods');
+            const getPaymentMethodsFn = httpsCallable(config.functions, 'getPaymentMethods');
             const result = await getPaymentMethodsFn({
                 subscriptionId: subscription.id
             });
@@ -166,7 +159,7 @@ export default function ManagePaymentMethods() {
 
     useEffect(() => {
         fetchPaymentMethods();
-    }, [subscription, functions, t]);
+    }, [subscription, config.functions, t]);
 
     const handleAddClick = async () => {
         if (!subscription) return;
@@ -175,7 +168,7 @@ export default function ManagePaymentMethods() {
             setError(null);
             setShowAddForm(true);
             setLoadingSetupIntent(true);
-            const createSetupIntentFn = httpsCallable(functions, 'createSetupIntent');
+            const createSetupIntentFn = httpsCallable(config.functions, 'createSetupIntent');
             const result = await createSetupIntentFn({
                 subscriptionId: subscription.id
             });
@@ -202,7 +195,7 @@ export default function ManagePaymentMethods() {
         try {
             setError(null);
             setSettingDefault(paymentMethodId);
-            const setDefaultFn = httpsCallable(functions, 'setDefaultPaymentMethod');
+            const setDefaultFn = httpsCallable(config.functions, 'setDefaultPaymentMethod');
             await setDefaultFn({
                 subscriptionId: subscription.id,
                 paymentMethodId
@@ -223,7 +216,7 @@ export default function ManagePaymentMethods() {
         try {
             setError(null);
             setDeletingCard(paymentMethodId);
-            const deleteCardFn = httpsCallable(functions, 'deletePaymentMethod');
+            const deleteCardFn = httpsCallable(config.functions, 'deletePaymentMethod');
             await deleteCardFn({
                 subscriptionId: subscription.id,
                 paymentMethodId

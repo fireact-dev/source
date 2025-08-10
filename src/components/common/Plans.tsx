@@ -7,15 +7,10 @@ interface PlansProps {
   currentPlanId?: string;
 }
 
-interface ExtendedConfig {
-  plans?: Plan[];
-  [key: string]: any;
-}
-
 export default function Plans({ onPlanSelect, currentPlanId }: PlansProps) {
   const { t } = useTranslation();
-  const config = useConfig() as unknown as ExtendedConfig;
-  const activePlans = config.plans?.filter(plan => !plan.legacy) || [];
+  const config = useConfig();
+  const activePlans = config.appConfig.stripe?.plans?.filter(plan => !plan.legacy) || [];
 
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">

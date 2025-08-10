@@ -7,12 +7,6 @@ import Plans from './common/Plans';
 import BillingForm from './common/BillingForm';
 import type { Plan } from '../types';
 
-interface ExtendedConfig {
-  functions: any;
-  pages: {
-    settings: string;
-  };
-}
 
 interface SubscriptionResponse {
   subscriptionId: string;
@@ -27,7 +21,7 @@ export default function CreatePlan() {
   const [loading, setLoading] = useState(false);
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { functions, pages } = useConfig() as unknown as ExtendedConfig;
+  const config = useConfig();
 
   const handlePlanSelect = async (plan: Plan) => {
     setSelectedPlan(plan);
@@ -37,11 +31,11 @@ export default function CreatePlan() {
       // Create free subscription without billing info
       try {
         setLoading(true);
-        const createSubscriptionCall = httpsCallable<any, SubscriptionResponse>(functions, 'createSubscription');
+        const createSubscriptionCall = httpsCallable<any, SubscriptionResponse>(config.functions, 'createSubscription');
         const { data: subscriptionData } = await createSubscriptionCall({
           planId: plan.id
         });
-        navigate(pages.settings.replace(':id', subscriptionData.subscriptionId));
+        navigate(config.appConfig.pages.settings.replace(':id', subscriptionData.subscriptionId));
       } catch (err) {
         console.error('Error creating subscription:', err);
         setError(t('subscription.createError'));
@@ -61,7 +55,7 @@ export default function CreatePlan() {
       setLoading(true);
       setError(null);
 
-      const createSubscriptionCall = httpsCallable<any, SubscriptionResponse>(functions, 'createSubscription');
+      const createSubscriptionCall = httpsCallable<any, SubscriptionResponse>(config.functions, 'createSubscription');
       const { data: subscriptionData } = await createSubscriptionCall({
         planId: selectedPlan.id,
         billingInfo: {
@@ -75,7 +69,7 @@ export default function CreatePlan() {
         // This would be implemented based on your payment flow
         console.log('Payment confirmation needed');
       } else {
-        navigate(pages.settings.replace(':id', subscriptionData.subscriptionId));
+        navigate(config.appConfig.pages.settings.replace(':id', subscriptionData.subscriptionId));
       }
     } catch (err) {
       console.error('Error creating subscription:', err);

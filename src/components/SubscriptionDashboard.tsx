@@ -3,21 +3,11 @@ import { useTranslation } from 'react-i18next';
 import { useConfig } from '../contexts/ConfigContext';
 import { useSubscription } from '../contexts/SubscriptionContext';
 
-interface ExtendedConfig {
-  pages: {
-    home: string;
-  };
-  plans?: {
-    id: string;
-    descriptionKeys: string[];
-  }[];
-  [key: string]: any;
-}
 
 export default function SubscriptionDashboard() {
   const { subscription, loading, error } = useSubscription();
   const { t } = useTranslation();
-  const config = useConfig() as unknown as ExtendedConfig;
+  const config = useConfig();
 
   if (loading) {
     return (
@@ -28,11 +18,11 @@ export default function SubscriptionDashboard() {
   }
 
   if (error || !subscription) {
-    return <Navigate to={config.pages.home} replace />;
+    return <Navigate to={config.appConfig.pages.home} replace />;
   }
 
   // Find the plan configuration
-  const planConfig = config.plans?.find(plan => plan.id === subscription.plan_id);
+  const planConfig = config.appConfig.stripe?.plans?.find(plan => plan.id === subscription.plan_id);
   
   return (
     <div className="space-y-6">

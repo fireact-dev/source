@@ -151,13 +151,14 @@ export interface AppConfiguration {
   pages: PagesConfig;
   permissions: PermissionsConfig;
   emulators?: EmulatorsConfig;
-  settings?: Record<string, { // Added settings from app.config.json
+  settings?: Record<string, {
     type: string;
     required: boolean;
     label: string;
     placeholder: string;
   }>;
-  stripe?: StripeConfig; // Include stripe config
+  stripe?: StripeConfig;
+  firebase?: FirebaseConfig;
 }
 
 // Need to augment the auth module to recognize our custom claims

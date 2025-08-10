@@ -13,12 +13,6 @@ import { useConfig } from '../contexts/ConfigContext';
 import { useSubscription } from '../contexts/SubscriptionContext';
 import { httpsCallable } from 'firebase/functions';
 
-interface ExtendedConfig {
-    stripe: {
-        public_api_key: string;
-    };
-    [key: string]: any;
-}
 
 let stripePromise: Promise<any> | null = null;
 
@@ -181,11 +175,11 @@ function UpdateBillingForm() {
 export default function UpdateBillingDetails() {
     const { t, i18n } = useTranslation();
     const navigate = useNavigate();
-    const config = useConfig() as unknown as ExtendedConfig;
+    const config = useConfig();
 
     // Initialize Stripe only once
     if (!stripePromise) {
-        stripePromise = loadStripe(config.stripe.public_api_key);
+        stripePromise = loadStripe(config.appConfig.stripe?.public_api_key || '');
     }
 
     const options = {

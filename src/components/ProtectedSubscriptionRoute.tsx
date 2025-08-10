@@ -4,18 +4,6 @@ import { useAuth } from '../contexts/AuthContext';
 import { useConfig } from '../contexts/ConfigContext';
 import type { ReactNode } from 'react';
 
-interface ExtendedConfig {
-    permissions: Record<string, {
-        label: string;
-        default: boolean;
-        admin: boolean;
-    }>;
-    pages: {
-        home: string;
-        signin: string;
-    };
-    [key: string]: any;
-}
 
 interface ProtectedSubscriptionRouteProps {
   children: ReactNode;
@@ -29,7 +17,7 @@ export default function ProtectedSubscriptionRoute({
   requireAll = false 
 }: ProtectedSubscriptionRouteProps) {
   const { loading, hasPermission, subscription } = useSubscription();
-  const config = useConfig() as unknown as ExtendedConfig;
+  const config = useConfig();
   const { currentUser } = useAuth();
 
   if (loading) {
@@ -41,7 +29,7 @@ export default function ProtectedSubscriptionRoute({
   }
 
   if (!currentUser) {
-    return <Navigate to={config.pages.signin} state={{ from: location }} replace />;
+    return <Navigate to={config.appConfig.pages.signin} state={{ from: location }} replace />;
   }
 
   // If no permissions required, allow access
@@ -52,20 +40,20 @@ export default function ProtectedSubscriptionRoute({
   // Special handling for owner permission
   if (requiredPermissions.includes('owner')) {
     if (subscription?.owner_id !== currentUser.uid) {
-      return <Navigate to={config.pages.home} replace />;
+      return <Navigate to={config.appConfig.pages.home} replace />;
     }
     return <>{children}</>;
   }
 
   // Check if all required permissions are valid
-  const validPermissions = Object.keys(config.permissions);
+  const validPermissions = Object.keys(config.appConfig.permissions);
   const hasInvalidPermission = requiredPermissions.some(
     permission => permission !== 'owner' && !validPermissions.includes(permission)
   );
 
   if (hasInvalidPermission) {
     console.error('Invalid permission requested');
-    return <Navigate to={config.pages.home} replace />;
+    return <Navigate to={config.appConfig.pages.home} replace />;
   }
 
   // Check permissions based on requireAll flag
@@ -74,7 +62,7 @@ export default function ProtectedSubscriptionRoute({
     : requiredPermissions.some(permission => permission === 'owner' || hasPermission(permission));
 
   if (!hasAccess) {
-    return <Navigate to={config.pages.home} replace />;
+    return <Navigate to={config.appConfig.pages.home} replace />;
   }
 
   return <>{children}</>;

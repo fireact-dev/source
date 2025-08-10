@@ -7,25 +7,11 @@ import { useConfig } from '../contexts/ConfigContext';
 import { useNavigate } from 'react-router-dom';
 import type { SubscriptionSettings as Settings } from '../types';
 
-interface ExtendedConfig {
-    pages: {
-        subscription: string;
-    };
-    settings: {
-        [key: string]: {
-            type: string;
-            required: boolean;
-            label: string;
-            placeholder: string;
-        };
-    };
-    [key: string]: any;
-}
 
 export default function SubscriptionSettings() {
   const { t } = useTranslation();
   const { subscription, updateSubscription } = useSubscription();
-  const config = useConfig() as unknown as ExtendedConfig;
+  const config = useConfig();
   const { db } = useConfig();
   const navigate = useNavigate();
   const [settings, setSettings] = useState<Settings>({
@@ -35,7 +21,7 @@ export default function SubscriptionSettings() {
   const [message, setMessage] = useState<{ type: 'success' | 'error', text: string } | null>(null);
 
   const getSubscriptionPath = () => {
-    return config.pages.subscription.replace(':id', subscription?.id || '');
+    return config.appConfig.pages.subscription.replace(':id', subscription?.id || '');
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -103,7 +89,7 @@ export default function SubscriptionSettings() {
         <div className="border-t border-gray-200">
           <form onSubmit={handleSubmit} className="px-4 py-5 sm:p-6">
             <div className="space-y-4">
-              {Object.entries(config.settings).map(([key, setting]) => (
+              {Object.entries(config.appConfig.settings || {}).map(([key, setting]) => (
                 <div key={key}>
                   <label htmlFor={key} className="block text-sm font-medium text-gray-700 mb-1">
                     {t(setting.label)}

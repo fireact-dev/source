@@ -7,14 +7,6 @@ import Message from './common/Message';
 import { useConfig } from '../contexts/ConfigContext';
 import type { UserDetails } from '../types';
 
-interface ExtendedConfig {
-    permissions: Record<string, {
-        label: string;
-        default: boolean;
-        admin: boolean;
-    }>;
-    [key: string]: any;
-}
 
 interface EditPermissionsModalProps {
     user: UserDetails;
@@ -25,10 +17,10 @@ interface EditPermissionsModalProps {
 
 export default function EditPermissionsModal({ user, subscriptionId, onClose, onSuccess }: EditPermissionsModalProps) {
     const { t } = useTranslation();
-    const config = useConfig() as unknown as ExtendedConfig;
+    const config = useConfig();
 
     // Get permission key that has default: true
-    const defaultPermission = Object.entries(config.permissions)
+    const defaultPermission = Object.entries(config.appConfig.permissions)
         .find(([_, value]) => value.default)?.[0] || '';
 
     const [selectedPermissions, setSelectedPermissions] = useState<string[]>(user.permissions);
@@ -100,7 +92,7 @@ export default function EditPermissionsModal({ user, subscriptionId, onClose, on
 
                 <div className="px-6 py-4">
                     <div className="space-y-4">
-                        {Object.entries(config.permissions).map(([key, value]) => (
+                        {Object.entries(config.appConfig.permissions).map(([key, value]) => (
                             <label key={key} className="flex items-center space-x-3">
                                 <input
                                     type="checkbox"

@@ -8,23 +8,12 @@ import Message from './common/Message';
 import { useConfig } from '../contexts/ConfigContext';
 import { useNavigate } from 'react-router-dom';
 
-interface ExtendedConfig {
-    permissions: Record<string, {
-        label: string;
-        default: boolean;
-        admin: boolean;
-    }>;
-    pages: {
-        users: string;
-    };
-    [key: string]: any;
-}
 
 export default function InviteUser() {
-    const config = useConfig() as unknown as ExtendedConfig;
+    const config = useConfig();
 
     // Find the permission with default=true
-    const defaultPermission = Object.entries(config.permissions)
+    const defaultPermission = Object.entries(config.appConfig.permissions)
         .find(([_, value]) => value.default)?.[0] || '';
 
     const [email, setEmail] = useState('');
@@ -58,7 +47,7 @@ export default function InviteUser() {
             
             // Navigate back to users list after successful invite
             setTimeout(() => {
-                navigate(config.pages.users.replace(':id', subscription.id));
+                navigate(config.appConfig.pages.users.replace(':id', subscription.id));
             }, 1500);
         } catch (error) {
             console.error('Error creating invite:', error);
@@ -83,7 +72,7 @@ export default function InviteUser() {
     };
 
     const handleBack = () => {
-        navigate(config.pages.users.replace(':id', subscription?.id || ''));
+        navigate(config.appConfig.pages.users.replace(':id', subscription?.id || ''));
     };
 
     const togglePermission = (permission: string) => {
@@ -136,7 +125,7 @@ export default function InviteUser() {
                                     {t('subscription.users.permissionsHeader')}
                                 </label>
                                 <div className="space-y-2">
-                                    {Object.entries(config.permissions).map(([key, value]) => (
+                                    {Object.entries(config.appConfig.permissions).map(([key, value]) => (
                                         <label key={key} className="flex items-center space-x-3">
                                             <input
                                                 type="checkbox"

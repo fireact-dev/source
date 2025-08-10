@@ -9,14 +9,6 @@ import { type UserDetails } from '../types';
 import EditPermissionsModal from './EditPermissionsModal';
 import { useSubscription } from '../contexts/SubscriptionContext';
 
-interface ExtendedConfig {
-    permissions: Record<string, {
-        label: string;
-        default: boolean;
-        admin: boolean;
-    }>;
-    [key: string]: any;
-}
 
 interface UserTableProps {
     users: UserDetails[];
@@ -27,7 +19,7 @@ interface UserTableProps {
 export default function UserTable({ users, onRefresh, subscriptionId }: UserTableProps) {
     const { t } = useTranslation();
     const { subscription } = useSubscription();
-    const config = useConfig() as unknown as ExtendedConfig;
+    const config = useConfig();
     const [isRevoking, setIsRevoking] = useState<string | null>(null);
     const [isRemoving, setIsRemoving] = useState<string | null>(null);
     const [error, setError] = useState<string | null>(null);
@@ -91,7 +83,7 @@ export default function UserTable({ users, onRefresh, subscriptionId }: UserTabl
 
     const getPermissionLabels = (user: UserDetails, permissions: string[]) => {
         const labels = permissions.map(permission => {
-            const permissionConfig = config.permissions[permission];
+            const permissionConfig = config.appConfig.permissions[permission];
             return permissionConfig?.label || permission;
         });
 

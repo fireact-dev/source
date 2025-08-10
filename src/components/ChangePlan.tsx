@@ -9,10 +9,6 @@ import BillingForm from './common/BillingForm';
 import { type Plan } from '../types';
 import { useSubscription } from '../contexts/SubscriptionContext';
 
-interface ExtendedConfig {
-    plans?: Plan[];
-    [key: string]: any;
-}
 
 export default function ChangePlan() {
     const [step, setStep] = useState<1 | 2>(1);
@@ -21,7 +17,7 @@ export default function ChangePlan() {
     const [loading, setLoading] = useState(false);
     const { t } = useTranslation();
     const navigate = useNavigate();
-    const config = useConfig() as unknown as ExtendedConfig;
+    const config = useConfig();
     const { subscription, updateSubscription } = useSubscription();
     const { functions } = useConfig();
 
@@ -29,7 +25,7 @@ export default function ChangePlan() {
         setSelectedPlan(plan);
         
         // Get current plan
-        const currentPlan = config.plans?.find(p => p.id === subscription?.plan_id);
+        const currentPlan = config.appConfig.stripe?.plans?.find(p => p.id === subscription?.plan_id);
         if (!currentPlan) {
             setError(t('subscription.planNotFound'));
             return;

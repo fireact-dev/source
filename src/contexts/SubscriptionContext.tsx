@@ -5,14 +5,6 @@ import { doc, getDoc } from 'firebase/firestore';
 import { useConfig } from './ConfigContext';
 import type { Subscription } from '../types';
 
-interface ExtendedConfig {
-    permissions: Record<string, {
-        label: string;
-        default: boolean;
-        admin: boolean;
-    }>;
-    [key: string]: any;
-}
 
 interface SubscriptionContextType {
   subscription: Subscription | null;
@@ -59,12 +51,12 @@ export function SubscriptionProvider({ children }: SubscriptionProviderProps) {
   const [error, setError] = useState<string | null>(null);
   const [userPermissions, setUserPermissions] = useState<string[]>([]);
   const { id } = useParams();
-  const config = useConfig() as unknown as ExtendedConfig;
+  const config = useConfig();
   const { db } = useConfig();
   const { currentUser } = useAuth();
 
   // Find the permission key that has default: true
-  const defaultPermission = Object.entries(config.permissions).find(
+  const defaultPermission = Object.entries(config.appConfig.permissions).find(
     ([_, value]) => value.default
   )?.[0] || 'access';
 
