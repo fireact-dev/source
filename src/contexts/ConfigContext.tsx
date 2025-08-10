@@ -6,74 +6,16 @@ import { getFunctions, type Functions, connectFunctionsEmulator } from 'firebase
 
 import firebaseConfig from '../config/firebase.config.json';
 import appConfig from '../config/app.config.json';
+import stripeConfig from '../config/stripe.config.json'; // Import stripe config
+import { type AppConfiguration, type StripeConfig, type FirebaseConfig, type SocialLoginConfig, type PagesConfig, type EmulatorsConfig, type PermissionsConfig } from '../types'; // Import AppConfiguration and StripeConfig
 
-interface FirebaseConfig {
-  apiKey: string;
-  authDomain: string;
-  projectId: string;
-  storageBucket: string;
-  messagingSenderId: string;
-  appId: string;
-}
-
-interface SocialLoginConfig {
-  google: boolean;
-  microsoft: boolean;
-  facebook: boolean;
-  apple: boolean;
-  github: boolean;
-  twitter: boolean;
-  yahoo: boolean;
-}
-
-interface PagesConfig extends Record<string, string> {}
-
-interface EmulatorsConfig {
-  enabled: boolean;
-  host: string;
-  ports: {
-    functions: number;
-    firestore: number;
-    auth: number;
-    hosting: number;
-  };
-}
-
-interface PermissionsConfig {
-  access: {
-    label: string;
-    default: boolean;
-    admin: boolean;
-  };
-  editor: {
-    label: string;
-    default: boolean;
-    admin: boolean;
-  };
-  admin: {
-    label: string;
-    default: boolean;
-    admin: boolean;
-  };
-}
-
-interface AppConfig {
-  name: string;
-  socialLogin: SocialLoginConfig;
-  pages: PagesConfig;
-  permissions: PermissionsConfig;
-  emulators?: EmulatorsConfig;
-}
-
+// Define the structure for the context value
 interface ConfigContextType {
-  firebase: FirebaseConfig;
-  socialLogin: SocialLoginConfig;
-  pages: PagesConfig;
-  permissions: PermissionsConfig;
+  firebase: FirebaseConfig; // Keep FirebaseConfig as it's from firebaseConfig.json
+  appConfig: AppConfiguration; // Use the consolidated AppConfiguration
   auth: Auth;
   db: Firestore;
   functions: Functions;
-  name: string;
   emulators?: EmulatorsConfig;
 }
 
@@ -123,15 +65,23 @@ export function ConfigProvider({ children }: ConfigProviderProps) {
     }
   }
 
-  const value: ConfigContextType = {
-    firebase: firebaseConfig.firebase,
+  // Combine appConfig and stripeConfig into AppConfiguration
+  const combinedConfig: AppConfiguration = {
+    name: appConfig.name,
     socialLogin: appConfig.socialLogin,
     pages: appConfig.pages,
     permissions: appConfig.permissions,
+    emulators: appConfig.emulators,
+    settings: appConfig.settings,
+    stripe: stripeConfig.stripe // Include stripe public_api_key and plans
+  };
+
+  const value: ConfigContextType = {
+    firebase: firebaseConfig.firebase,
+    appConfig: combinedConfig,
     auth,
     db,
     functions,
-    name: appConfig.name,
     emulators: appConfig.emulators
   };
 

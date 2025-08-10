@@ -100,6 +100,64 @@ export interface InvoiceListResponse {
 
 export interface StripeConfig {
     public_api_key: string;
+    plans?: Plan[]; // Added plans here as it's part of stripe config
+}
+
+// Firebase Configuration Interface
+export interface FirebaseConfig {
+  apiKey: string;
+  authDomain: string;
+  projectId: string;
+  storageBucket: string;
+  messagingSenderId: string;
+  appId: string;
+}
+
+// App Configuration Interfaces
+export interface SocialLoginConfig {
+  google: boolean;
+  microsoft: boolean;
+  facebook: boolean;
+  apple: boolean;
+  github: boolean;
+  twitter: boolean;
+  yahoo: boolean;
+}
+
+export interface PagesConfig extends Record<string, string> {}
+
+export interface EmulatorsConfig {
+  enabled: boolean;
+  host: string;
+  ports: {
+    functions: number;
+    firestore: number;
+    auth: number;
+    hosting: number;
+  };
+}
+
+export interface PermissionsConfig {
+  [key: string]: { // Allow for dynamic permission keys
+    label: string;
+    default: boolean;
+    admin: boolean;
+  };
+}
+
+export interface AppConfiguration {
+  name: string;
+  socialLogin: SocialLoginConfig;
+  pages: PagesConfig;
+  permissions: PermissionsConfig;
+  emulators?: EmulatorsConfig;
+  settings?: Record<string, { // Added settings from app.config.json
+    type: string;
+    required: boolean;
+    label: string;
+    placeholder: string;
+  }>;
+  stripe?: StripeConfig; // Include stripe config
 }
 
 // Need to augment the auth module to recognize our custom claims

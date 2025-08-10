@@ -6,20 +6,14 @@ import { useSubscription } from '../contexts/SubscriptionContext';
 import InvoiceList from './InvoiceList';
 import { type Plan } from '../types';
 
-interface ExtendedConfig {
-    plans?: Plan[];
-    pages: Record<string, string>;
-    [key: string]: any;
-}
-
 export default function Billing() {
     const { t } = useTranslation();
     const { subscription } = useSubscription();
-    const config = useConfig() as ExtendedConfig;
+    const config = useConfig();
     const { currentUser } = useAuth();
 
     // Get current plan details
-    const currentPlan = config.plans?.find(p => p.id === subscription?.plan_id);
+    const currentPlan = config.appConfig.stripe?.plans?.find(p => p.id === subscription?.plan_id);
     const planName = currentPlan ? t(currentPlan.titleKey) : t('subscription.planNotFound');
 
     // Check if current user is the owner and subscription is not canceled
@@ -27,11 +21,11 @@ export default function Billing() {
     const isCanceled = subscription?.status === 'canceled';
 
     // Get the URLs from config and replace :id with subscription id
-    const changePlanUrl = subscription?.id ? config.pages.changePlan.replace(':id', subscription.id) : '#';
-    const cancelSubscriptionUrl = subscription?.id ? config.pages.cancelSubscription.replace(':id', subscription.id) : '#';
-    const managePaymentMethodsUrl = subscription?.id ? config.pages.managePaymentMethods.replace(':id', subscription.id) : '#';
-    const updateBillingDetailsUrl = subscription?.id ? config.pages.updateBillingDetails.replace(':id', subscription.id) : '#';
-    const transferOwnershipUrl = subscription?.id ? config.pages.transferOwnership.replace(':id', subscription.id) : '#';
+    const changePlanUrl = subscription?.id ? config.appConfig.pages.changePlan.replace(':id', subscription.id) : '#';
+    const cancelSubscriptionUrl = subscription?.id ? config.appConfig.pages.cancelSubscription.replace(':id', subscription.id) : '#';
+    const managePaymentMethodsUrl = subscription?.id ? config.appConfig.pages.managePaymentMethods.replace(':id', subscription.id) : '#';
+    const updateBillingDetailsUrl = subscription?.id ? config.appConfig.pages.updateBillingDetails.replace(':id', subscription.id) : '#';
+    const transferOwnershipUrl = subscription?.id ? config.appConfig.pages.transferOwnership.replace(':id', subscription.id) : '#';
 
     // Determine button state and tooltip
     const isDisabled = !isOwner || isCanceled;

@@ -5,13 +5,13 @@ import { useConfig } from '../../contexts/ConfigContext';
 export default function MobileMenuItems() {
   const { t } = useTranslation();
   const location = useLocation();
-  const { pages } = useConfig();
+  const config = useConfig();
 
   return (
     <Link
-      to={pages.dashboard}
+      to={config.appConfig.pages.dashboard}
       className={`block px-3 py-2 rounded-md text-base font-medium ${
-        location.pathname === pages.dashboard
+        location.pathname === config.appConfig.pages.dashboard
           ? 'bg-indigo-100 text-indigo-600'
           : 'hover:bg-gray-700 hover:text-white'
       }`}

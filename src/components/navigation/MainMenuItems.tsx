@@ -5,22 +5,22 @@ import { useConfig } from '../../contexts/ConfigContext';
 export function MainDesktopMenu() {
   const location = useLocation();
   const { t } = useTranslation();
-  const { pages } = useConfig();
+  const config = useConfig();
   const plural = t('subscription.plural').charAt(0).toUpperCase() + t('subscription.plural').slice(1);
 
   return (
     <nav className="mt-5 px-2">
       <Link
-        to={pages.home}
+        to={config.appConfig.pages.home}
         className={`group flex items-center px-2 py-2 text-base font-medium rounded-md ${
-          location.pathname === pages.home
+          location.pathname === config.appConfig.pages.home
             ? 'bg-indigo-100 text-indigo-600'
             : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
         }`}
       >
         <svg
           className={`[.w-20_&]:mx-auto [.w-64_&]:mr-4 h-6 w-6 ${
-            location.pathname === pages.home
+            location.pathname === config.appConfig.pages.home
               ? 'text-indigo-600'
               : 'text-gray-400 group-hover:text-gray-500'
           }`}
@@ -45,22 +45,22 @@ export function MainDesktopMenu() {
 export function MainMobileMenu() {
   const location = useLocation();
   const { t } = useTranslation();
-  const { pages } = useConfig();
+  const config = useConfig();
   const plural = t('subscription.plural').charAt(0).toUpperCase() + t('subscription.plural').slice(1);
 
   return (
     <div>
       <Link
-        to={pages.home}
+        to={config.appConfig.pages.home}
         className={`group flex items-center px-2 py-2 text-base font-medium rounded-md ${
-          location.pathname === pages.home
+          location.pathname === config.appConfig.pages.home
             ? 'bg-indigo-100 text-indigo-600'
             : 'hover:bg-gray-700 hover:text-white'
         }`}
       >
         <svg
           className={`mr-4 h-6 w-6 ${
-            location.pathname === pages.home
+            location.pathname === config.appConfig.pages.home
               ? 'text-indigo-600'
               : 'text-gray-400 group-hover:text-gray-300'
           }`}

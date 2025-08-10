@@ -48,13 +48,13 @@ export default function SubscriptionLayout({
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [userData, setUserData] = useState<UserData | null>(null);
-  const { db, pages, name } = useConfig();
+  const config = useConfig();
 
   useEffect(() => {
     async function fetchUserData() {
       if (currentUser) {
         try {
-          const userDoc = await getDoc(doc(db, 'users', currentUser.uid));
+          const userDoc = await getDoc(doc(config.db, 'users', currentUser.uid));
           if (userDoc.exists()) {
             const data = userDoc.data() as UserData;
             setUserData(data);
@@ -66,12 +66,12 @@ export default function SubscriptionLayout({
     }
 
     fetchUserData();
-  }, [currentUser, db]);
+  }, [currentUser, config.db]);
 
   async function handleSignOut() {
     try {
       await signout();
-      navigate(pages.home);
+      navigate(config.appConfig.pages.home);
     } catch (error) {
       console.error('Failed to sign out');
     }
@@ -87,7 +87,7 @@ export default function SubscriptionLayout({
               <div className="flex items-center">
                 <div className="flex items-center flex-shrink-0">
                   {logo}
-                  <span className={`ml-2 text-xl font-bold ${navTextColor || 'text-white'}`}>{name}</span>
+                  <span className={`ml-2 text-xl font-bold ${navTextColor || 'text-white'}`}>{config.appConfig.name}</span>
                 </div>
                 <button
                   onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -149,7 +149,7 @@ export default function SubscriptionLayout({
                   <div className="absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
                     <div className="py-1" role="menu" aria-orientation="vertical">
                       <Link
-                        to={pages.profile}
+                        to={config.appConfig.pages.profile}
                         className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                         role="menuitem"
                         onClick={() => setIsDropdownOpen(false)}
@@ -182,9 +182,9 @@ export default function SubscriptionLayout({
             <div className="pt-2 pb-3">
               {mobileMenu}
               <Link
-                to={pages.profile}
+                to={config.appConfig.pages.profile}
                 className={`block px-3 py-2 rounded-md text-base font-medium ${
-                  location.pathname === pages.profile
+                  location.pathname === config.appConfig.pages.profile
                     ? 'bg-indigo-100 text-indigo-600'
                     : 'hover:bg-gray-700 hover:text-white'
                 }`}

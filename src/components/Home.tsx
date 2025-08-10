@@ -9,24 +9,11 @@ import { getFunctions, httpsCallable } from 'firebase/functions';
 import { getApp } from 'firebase/app';
 import { type Subscription, type Invite } from '../types';
 
-interface ExtendedConfig {
-    permissions: Record<string, {
-        label: string;
-        default: boolean;
-        admin: boolean;
-    }>;
-    pages: {
-        subscription: string;
-        createPlan: string;
-    };
-    [key: string]: any;
-}
-
 export default function Home() {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const { currentUser } = useAuth();
-  const config = useConfig() as unknown as ExtendedConfig;
+  const config = useConfig();
   const [subscriptions, setSubscriptions] = useState<Subscription[]>([]);
   const [invites, setInvites] = useState<Invite[]>([]);
   const [isAccepting, setIsAccepting] = useState(false);
@@ -37,7 +24,7 @@ export default function Home() {
   const plural = t('subscription.plural').charAt(0).toUpperCase() + t('subscription.plural').slice(1);
 
   // Find the permission key that has default: true
-  const defaultPermission = Object.entries(config.permissions).find(
+  const defaultPermission = Object.entries(config.appConfig.permissions).find(
     ([_, value]) => value.default
   )?.[0] || 'access';
 
@@ -128,7 +115,7 @@ export default function Home() {
   };
 
   const formatPermissions = (permissions: string[]) => {
-    return permissions.map(p => config.permissions[p]?.label).join(', ');
+    return permissions.map(p => config.appConfig.permissions[p]?.label).join(', ');
   };
 
   return (
@@ -189,7 +176,7 @@ export default function Home() {
           <div className="flex items-center justify-between p-6">
             <h2 className="text-xl font-semibold">{t('subscription.your', { type: plural })}</h2>
             <button
-              onClick={() => navigate(config.pages.createPlan)}
+              onClick={() => navigate(config.appConfig.pages.createPlan)}
               className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               {t('subscription.create', { type })}
@@ -206,7 +193,7 @@ export default function Home() {
               {subscriptions.map((subscription) => (
                 <Link 
                   key={subscription.id} 
-                  to={config.pages.subscription.replace(':id', subscription.id)}
+                  to={config.appConfig.pages.subscription.replace(':id', subscription.id)}
                   className="block p-6 border rounded-lg hover:border-indigo-600 hover:shadow-md transition-all group"
                 >
                   <div className="flex flex-col h-full">
@@ -250,7 +237,7 @@ export default function Home() {
               </svg>
               <h3 className="mt-2 text-sm font-medium text-gray-900">{t('subscription.your', { type: plural })}</h3>
               <button
-                onClick={() => navigate(config.pages.createPlan)}
+                onClick={() => navigate(config.appConfig.pages.createPlan)}
                 className="mt-1 text-sm text-indigo-600 hover:text-indigo-500"
               >
                 {t('subscription.create', { type })}
