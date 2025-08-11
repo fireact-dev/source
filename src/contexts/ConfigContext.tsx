@@ -7,7 +7,7 @@ import { getFunctions, type Functions, connectFunctionsEmulator } from 'firebase
 import firebaseConfig from '../config/firebase.config.json';
 import appConfig from '../config/app.config.json';
 import stripeConfig from '../config/stripe.config.json'; // Import stripe config
-import { type AppConfiguration, type StripeConfig, type FirebaseConfig, type SocialLoginConfig, type PagesConfig, type EmulatorsConfig, type PermissionsConfig } from '../types'; // Import AppConfiguration and StripeConfig
+import { type AppConfiguration, type FirebaseConfig, type SocialLoginConfig, type PagesConfig, type EmulatorsConfig } from '../types'; // Import AppConfiguration and StripeConfig
 
 // Define the structure for the context value
 interface ConfigContextType {
@@ -17,6 +17,9 @@ interface ConfigContextType {
   db: Firestore;
   functions: Functions;
   emulators?: EmulatorsConfig;
+  // Add the properties that components are trying to access
+  pages: PagesConfig;
+  socialLogin: SocialLoginConfig;
 }
 
 const ConfigContext = createContext<ConfigContextType | undefined>(undefined);
@@ -82,7 +85,9 @@ export function ConfigProvider({ children }: ConfigProviderProps) {
     auth,
     db,
     functions,
-    emulators: appConfig.emulators
+    emulators: appConfig.emulators,
+    pages: appConfig.pages,
+    socialLogin: appConfig.socialLogin
   };
 
   return (

@@ -13,8 +13,6 @@ import ChangePassword from './components/ChangePassword';
 import DeleteAccount from './components/DeleteAccount';
 import AuthenticatedLayout from './layouts/AuthenticatedLayout';
 import PublicLayout from './layouts/PublicLayout';
-import DesktopMenuItems from './components/navigation/DesktopMenuItems';
-import MobileMenuItems from './components/navigation/MobileMenuItems';
 import Logo from './components/Logo';
 import appConfig from './config/app.config.json';
 import i18n from 'i18next';

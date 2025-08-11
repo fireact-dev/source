@@ -59,13 +59,13 @@
       }
   },
   "emulators": {
-    "enabled": false,
+    "enabled": true,
     "host": "localhost",
     "ports": {
       "functions": 5001,
       "firestore": 8080,
       "auth": 9099,
-      "hosting": 5000
+      "hosting": 5002
     }
   }
 }

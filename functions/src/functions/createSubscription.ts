@@ -70,7 +70,7 @@ export const createSubscription = https.onCall(async (data: CreateSubscriptionDa
 
     const subscription = await stripe.subscriptions.create(subscriptionParams);
     const invoice = subscription.latest_invoice as Stripe.Invoice;
-    const paymentIntent = invoice.payment_intent as Stripe.PaymentIntent;
+    const paymentIntent = (invoice as any).payment_intent as Stripe.PaymentIntent;
 
     // Create permissions object based on config
     const permissions: Record<string, string[]> = {};
@@ -89,20 +89,32 @@ export const createSubscription = https.onCall(async (data: CreateSubscriptionDa
     });
 
     // Write subscription data to Firestore
-    await db.collection('subscriptions').doc(subscription.id).set({
+    // Note: In Basil API version, current_period_start/end are now at item level, not subscription level
+    const subscriptionData: any = {
       creation_time: FieldValue.serverTimestamp(),
       owner_id: userId,
       plan_id: data.planId,
       stripe_subscription_id: subscription.id,
       stripe_customer_id: customer.id,
       status: subscription.status,
-      subscription_current_period_start: subscription.current_period_start,
-      subscription_current_period_end: subscription.current_period_end,
-      subscription_start: subscription.start_date,
-      subscription_end: subscription.ended_at || null,
+      subscription_start: (subscription as any).start_date || null,
+      subscription_end: (subscription as any).ended_at || null,
       permissions: permissions,
       stripe_items: stripe_items
-    });
+    };
+
+    // Get period information from the first subscription item (since all items should have same period)
+    if (subscription.items.data.length > 0) {
+      const firstItem = subscription.items.data[0] as any;
+      if (firstItem.current_period_start !== undefined) {
+        subscriptionData.subscription_current_period_start = firstItem.current_period_start;
+      }
+      if (firstItem.current_period_end !== undefined) {
+        subscriptionData.subscription_current_period_end = firstItem.current_period_end;
+      }
+    }
+
+    await db.collection('subscriptions').doc(subscription.id).set(subscriptionData);
 
     // Only return client_secret if payment requires confirmation
     return {

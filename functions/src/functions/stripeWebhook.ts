@@ -50,21 +50,32 @@ export const stripeWebhook = https.onRequest(async (request, response) => {
       });
 
       // Update subscription data in Firestore
-      await subscriptionRef.update({
+      const updateData: any = {
         stripe_customer_id: subscription.customer as string,
         stripe_items: stripe_items,
-        subscription_current_period_end: subscription.items.data[0] ? (subscription.items.data[0] as any).current_period_end : null,
-        subscription_current_period_start: subscription.items.data[0] ? (subscription.items.data[0] as any).current_period_start : null,
         subscription_end: subscription.ended_at || null,
-        subscription_start: subscription.start_date,
+        subscription_start: (subscription as any).start_date || null,
         status: subscription.status,
-      });
+      };
+
+      // Get period information from the first subscription item (since all items should have same period)
+      if (subscription.items.data.length > 0) {
+        const firstItem = subscription.items.data[0] as any;
+        if (firstItem.current_period_start !== undefined) {
+          updateData.subscription_current_period_start = firstItem.current_period_start;
+        }
+        if (firstItem.current_period_end !== undefined) {
+          updateData.subscription_current_period_end = firstItem.current_period_end;
+        }
+      }
+
+      await subscriptionRef.update(updateData);
     } else if (event.type.startsWith('invoice.')) {
       const invoice = event.data.object as Stripe.Invoice;
       console.log('Processing invoice event:', event.type, invoice.id);
       
       // Get subscription ID from either direct field or nested parent.subscription_details
-      const subscriptionId = typeof invoice.subscription === 'string' ? invoice.subscription : 
+      const subscriptionId = typeof (invoice as any).subscription === 'string' ? (invoice as any).subscription : 
                            (invoice as any).parent?.subscription_details?.subscription;
       
       // Only process invoices that are associated with a subscription
@@ -72,12 +83,12 @@ export const stripeWebhook = https.onRequest(async (request, response) => {
         console.log('Found associated subscription:', subscriptionId);
         const subscriptionRef = db.collection('subscriptions').doc(subscriptionId);
         console.log('Invoice data:', {
-          id: invoice.id,
+          id: (invoice as any).id,
           amount_due: invoice.amount_due,
           status: invoice.status,
           subscription: subscriptionId
         });
-        const invoiceRef = subscriptionRef.collection('invoices').doc(invoice.id);
+        const invoiceRef = subscriptionRef.collection('invoices').doc((invoice as any).id || '');
 
         // Create invoice data with null checks
         const invoiceData = {
@@ -92,8 +103,8 @@ export const stripeWebhook = https.onRequest(async (request, response) => {
           hosted_invoice_url: invoice.hosted_invoice_url || null,
           invoice_pdf: invoice.invoice_pdf || null,
           number: invoice.number || null,
-          paid: invoice.paid || false,
-          payment_intent: invoice.payment_intent as string || null,
+          paid: (invoice as any).paid || false,
+          payment_intent: (invoice as any).payment_intent as string || null,
           period_end: invoice.period_end || null,
           period_start: invoice.period_start || null,
           status: invoice.status || 'draft',

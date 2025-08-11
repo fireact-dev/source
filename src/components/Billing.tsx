@@ -4,7 +4,6 @@ import { useConfig } from '../contexts/ConfigContext';
 import { useAuth } from '../contexts/AuthContext';
 import { useSubscription } from '../contexts/SubscriptionContext';
 import InvoiceList from './InvoiceList';
-import { type Plan } from '../types';
 
 export default function Billing() {
     const { t } = useTranslation();

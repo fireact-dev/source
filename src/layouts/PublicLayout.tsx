@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { type ReactNode } from 'react';
 import LanguageSwitcher from '../components/LanguageSwitcher';
 import { Outlet } from 'react-router-dom';
 import { useLoading } from '../contexts/LoadingContext';
