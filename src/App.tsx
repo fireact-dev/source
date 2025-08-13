@@ -25,6 +25,8 @@ import zhtw from './i18n/zh-tw';
 import fr from './i18n/fr';
 import es from './i18n/es';
 import pt from './i18n/pt';
+import ja from './i18n/ja';
+import ko from './i18n/ko';
 import CreatePlan from './components/CreatePlan';
 import Home from './components/Home';
 import SubscriptionDashboard from './components/SubscriptionDashboard';
@@ -69,6 +71,12 @@ i18n
       },
       pt: {
         translation: pt
+      },
+      ja: {
+        translation: ja
+      },
+      ko: {
+        translation: ko
       }
     },
     fallbackLng: 'en',
