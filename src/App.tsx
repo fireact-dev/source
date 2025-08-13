@@ -21,7 +21,7 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import en from './i18n/en';
 import zh from './i18n/zh';
 import de from './i18n/de';
-import zhtw from './i18n/zh-tw';
+import zhtw from './i18n/zhtw';
 import fr from './i18n/fr';
 import es from './i18n/es';
 import pt from './i18n/pt';
