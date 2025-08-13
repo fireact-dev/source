@@ -22,9 +22,9 @@ export default function ResetPassword() {
     try {
       setError('');
       await sendPasswordResetEmail(auth, email);
-      setMessage(t('passwordResetEmailSent')); // Use translation for message
+      setMessage(t('auth.passwordResetEmailSent')); // Use translation for message
     } catch (err) {
-      setError(t('failedToSendResetEmail')); // Use translation for error
+      setError(t('auth.failedToSendResetEmail')); // Use translation for error
     } finally {
       setLoading(false); // Set loading to false after the process
     }
@@ -34,7 +34,7 @@ export default function ResetPassword() {
     <div>
       <div>
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          {t('resetPassword')}
+          {t('auth.resetPassword')}
         </h2>
       </div>
       {message && <div className="text-green-500 text-center mt-2">{message}</div>}
@@ -43,7 +43,7 @@ export default function ResetPassword() {
         <div className="space-y-4">
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-              {t('email')}
+              {t('auth.email')}
             </label>
             <input
               id="email"
@@ -62,7 +62,7 @@ export default function ResetPassword() {
             type="submit"
             className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            {t('sendResetEmail')}
+            {t('auth.sendResetEmail')}
           </button>
         </div>
       </form>
@@ -71,7 +71,7 @@ export default function ResetPassword() {
           onClick={() => navigate(pages.signIn)}
           className="text-sm text-indigo-600 hover:text-indigo-500"
         >
-          {t('backToSignIn')}
+          {t('auth.backToSignIn')}
         </button>
       </div>
     </div>

@@ -28,7 +28,7 @@ export default function SignUp() {
       navigate(pages.dashboard);
     } catch (err) {
       console.error('Signup error:', err);
-      setError(t('failedSignUp'));
+      setError(t('auth.failedSignUp'));
     } finally {
       setLoading(false);
     }
@@ -38,7 +38,7 @@ export default function SignUp() {
     <div>
       <div>
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          {t('createAccount')}
+          {t('auth.createAccount')}
         </h2>
       </div>
       {error && <div className="text-red-500 text-center mt-2">{error}</div>}
@@ -46,7 +46,7 @@ export default function SignUp() {
         <div className="space-y-4">
           <div>
             <label htmlFor="fullName" className="block text-sm font-medium text-gray-700">
-              {t('fullName')}
+              {t('auth.fullName')}
             </label>
             <input
               id="fullName"
@@ -60,7 +60,7 @@ export default function SignUp() {
           </div>
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-              {t('email')}
+              {t('auth.email')}
             </label>
             <input
               id="email"
@@ -74,7 +74,7 @@ export default function SignUp() {
           </div>
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-              {t('password')}
+              {t('auth.password')}
             </label>
             <input
               id="password"
@@ -93,15 +93,15 @@ export default function SignUp() {
             type="submit"
             className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            {t('createAccount')}
+            {t('auth.createAccount')}
           </button>
         </div>
       </form>
       <div className="text-center mt-4">
         <p className="text-sm text-gray-600">
-          {t('alreadyHaveAccount')}{' '}
+          {t('auth.alreadyHaveAccount')}{' '}
           <Link to={pages.signIn} className="font-medium text-indigo-600 hover:text-indigo-500">
-            {t('signin')}
+            {t('auth.signin')}
           </Link>
         </p>
       </div>

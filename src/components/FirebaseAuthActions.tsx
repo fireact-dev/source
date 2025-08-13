@@ -12,7 +12,7 @@ const FirebaseAuthActions = () => {
   const oobCode = searchParams.get('oobCode');
 
   if (!mode || !oobCode) {
-    return <Message type="error">{t('invalidOrMissingParameters')}</Message>;
+    return <Message type="error">{t('error.invalidOrMissingParameters')}</Message>;
   }
 
   switch (mode) {
@@ -24,7 +24,7 @@ const FirebaseAuthActions = () => {
     case 'recoverEmail':
       return <EmailChange oobCode={oobCode} mode={mode} />;
     default:
-      return <Message type="error">{t('unsupportedOperation')}</Message>;
+      return <Message type="error">{t('error.unsupportedOperation')}</Message>;
   }
 };
 

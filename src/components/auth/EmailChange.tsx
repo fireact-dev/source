@@ -27,7 +27,7 @@ const EmailChange = ({ oobCode, mode }: EmailChangeProps) => {
         setStatus('confirming');
       } catch (err) {
         setStatus('error');
-        setError(err instanceof Error ? err.message : t('emailUpdateError'));
+        setError(err instanceof Error ? err.message : t('profile.emailUpdateError'));
       }
     };
 
@@ -40,7 +40,7 @@ const EmailChange = ({ oobCode, mode }: EmailChangeProps) => {
       setStatus('success');
     } catch (err) {
       setStatus('error');
-      setError(err instanceof Error ? err.message : t('emailUpdateError'));
+      setError(err instanceof Error ? err.message : t('profile.emailUpdateError'));
     }
   };
 
@@ -48,27 +48,27 @@ const EmailChange = ({ oobCode, mode }: EmailChangeProps) => {
     return (
       <div className="text-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto"></div>
-        <p className="mt-4 text-gray-600">{t('verifyingRequest')}</p>
+        <p className="mt-4 text-gray-600">{t('profile.verifyingRequest')}</p>
       </div>
     );
   }
 
   if (status === 'error') {
-    return <Message type="error">{error || t('emailUpdateError')}</Message>;
+    return <Message type="error">{error || t('profile.emailUpdateError')}</Message>;
   }
 
   if (status === 'success') {
     return (
       <div>
         <Message type="success">
-          {mode === 'recoverEmail' ? t('recoverEmailSuccess') : t('emailUpdateSuccess')}
+          {mode === 'recoverEmail' ? t('profile.recoverEmailSuccess') : t('profile.emailUpdateSuccess')}
         </Message>
         <div className="text-center mt-4">
           <Link
             to={pages.signIn}
             className="text-sm text-indigo-600 hover:text-indigo-500"
           >
-            {t('backToSignIn')}
+            {t('auth.backToSignIn')}
           </Link>
         </div>
       </div>
@@ -78,18 +78,18 @@ const EmailChange = ({ oobCode, mode }: EmailChangeProps) => {
   return (
     <div className="max-w-md mx-auto">
       <h2 className="text-2xl font-bold mb-4">
-        {mode === 'recoverEmail' ? t('recoverEmailTitle') : t('confirmEmailChange')}
+        {mode === 'recoverEmail' ? t('profile.recoverEmailTitle') : t('profile.confirmEmailChange')}
       </h2>
       <p className="mb-4 text-gray-600">
         {mode === 'recoverEmail' 
-          ? t('recoverEmailMessage')
-          : `${t('confirmEmailChangeTo')} ${emailDetails?.email}`}
+          ? t('profile.recoverEmailMessage')
+          : `${t('profile.confirmEmailChangeTo')} ${emailDetails?.email}`}
       </p>
       <button
         onClick={handleConfirm}
         className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
       >
-        {mode === 'recoverEmail' ? t('recoverEmailTitle') : t('confirmEmailChange')}
+        {mode === 'recoverEmail' ? t('profile.recoverEmailTitle') : t('profile.confirmEmailChange')}
       </button>
     </div>
   );

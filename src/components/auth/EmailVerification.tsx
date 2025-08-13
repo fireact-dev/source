@@ -24,7 +24,7 @@ const EmailVerification = ({ oobCode }: EmailVerificationProps) => {
         setStatus('success');
       } catch (err) {
         setStatus('error');
-        setError(err instanceof Error ? err.message : t('failedToVerifyEmail'));
+        setError(err instanceof Error ? err.message : t('profile.failedToVerifyEmail'));
       }
     };
 
@@ -35,24 +35,24 @@ const EmailVerification = ({ oobCode }: EmailVerificationProps) => {
     return (
       <div className="text-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-gray-900 mx-auto"></div>
-        <p className="mt-4 text-gray-600">{t('verifyingEmail')}</p>
+        <p className="mt-4 text-gray-600">{t('profile.verifyingEmail')}</p>
       </div>
     );
   }
 
   if (status === 'error') {
-    return <Message type="error">{error || t('verificationFailed')}</Message>;
+    return <Message type="error">{error || t('profile.verificationFailed')}</Message>;
   }
 
   return (
     <div>
-      <Message type="success">{t('emailVerified')}</Message>
+      <Message type="success">{t('profile.emailVerified')}</Message>
       <div className="text-center mt-4">
         <Link
           to={pages.signIn}
           className="text-sm text-indigo-600 hover:text-indigo-500"
         >
-          {t('backToSignIn')}
+          {t('auth.backToSignIn')}
         </Link>
       </div>
     </div>

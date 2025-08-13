@@ -29,7 +29,7 @@ const EditEmail: React.FC = () => {
         await verifyBeforeUpdateEmail(currentUser, email);
         setMessage({ 
           type: 'success', 
-          text: t('emailVerificationSent')
+          text: t('profile.emailVerificationSent')
         });
         setTimeout(() => {
           navigate(pages.profile);
@@ -38,14 +38,14 @@ const EditEmail: React.FC = () => {
         console.error('Error updating email:', error);
         if (error instanceof FirebaseError) {
           if (error.code === 'auth/operation-not-allowed') {
-            setMessage({ type: 'error', text: t('emailVerificationRequired') });
+            setMessage({ type: 'error', text: t('profile.emailVerificationRequired') });
           } else if (error.code === 'auth/requires-recent-login') {
-            setMessage({ type: 'error', text: t('reAuthenticationRequired') });
+            setMessage({ type: 'error', text: t('profile.reAuthenticationRequired') });
           } else {
-            setMessage({ type: 'error', text: t('emailUpdateError') });
+            setMessage({ type: 'error', text: t('profile.emailUpdateError') });
           }
         } else {
-          setMessage({ type: 'error', text: t('emailUpdateError') });
+          setMessage({ type: 'error', text: t('profile.emailUpdateError') });
         }
         setIsSubmitting(false);
       } finally {
@@ -58,7 +58,7 @@ const EditEmail: React.FC = () => {
     <div className="max-w-7xl mx-auto">
       <div className="bg-white shadow overflow-hidden sm:rounded-lg">
         <div className="px-4 py-5 sm:px-6">
-          <h2 className="text-lg font-medium text-gray-900">{t('editEmail')}</h2>
+          <h2 className="text-lg font-medium text-gray-900">{t('profile.edit.email')}</h2>
           {message && (
             <div className="mt-4">
               <Message type={message.type}>
@@ -72,7 +72,7 @@ const EditEmail: React.FC = () => {
             <div className="space-y-4">
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                  {t('email')}
+                  {t('auth.email')}
                 </label>
                 <input
                   type="email"
@@ -93,7 +93,7 @@ const EditEmail: React.FC = () => {
                 className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
                 disabled={isSubmitting}
               >
-                {t('cancel')}
+                {t('ui.cancel')}
               </button>
               <button
                 type="submit"
@@ -106,10 +106,10 @@ const EditEmail: React.FC = () => {
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
-                    {t('save')}
+                    {t('ui.save')}
                   </>
                 ) : (
-                  t('save')
+                  t('ui.save')
                 )}
               </button>
             </div>

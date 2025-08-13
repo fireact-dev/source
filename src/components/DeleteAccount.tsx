@@ -24,7 +24,7 @@ const DeleteAccount: React.FC = () => {
     if (!currentUser) return;
     
     if (confirmUUID !== currentUser.uid) {
-      setMessage({ type: 'error', text: t('uuidMismatch') });
+      setMessage({ type: 'error', text: t('profile.uuidMismatch') });
       return;
     }
 
@@ -36,7 +36,7 @@ const DeleteAccount: React.FC = () => {
       await deleteUser(currentUser);
       setMessage({ 
         type: 'success', 
-        text: t('accountDeleted')
+        text: t('profile.accountDeleted')
       });
       setTimeout(() => {
         navigate(pages.home);
@@ -45,12 +45,12 @@ const DeleteAccount: React.FC = () => {
       console.error('Error deleting account:', error);
       if (error instanceof FirebaseError) {
         if (error.code === 'auth/requires-recent-login') {
-          setMessage({ type: 'error', text: t('reAuthenticationRequired') });
+          setMessage({ type: 'error', text: t('profile.reAuthenticationRequired') });
         } else {
-          setMessage({ type: 'error', text: t('accountDeletionError') });
+          setMessage({ type: 'error', text: t('profile.accountDeletionError') });
         }
       } else {
-        setMessage({ type: 'error', text: t('accountDeletionError') });
+        setMessage({ type: 'error', text: t('profile.accountDeletionError') });
       }
       setIsSubmitting(false);
     } finally {
@@ -62,7 +62,7 @@ const DeleteAccount: React.FC = () => {
     <div className="max-w-7xl mx-auto">
       <div className="bg-white shadow overflow-hidden sm:rounded-lg">
         <div className="px-4 py-5 sm:px-6">
-          <h2 className="text-lg font-medium text-gray-900">{t('deleteAccount')}</h2>
+          <h2 className="text-lg font-medium text-gray-900">{t('profile.deleteAccount')}</h2>
           <div className="mt-2">
             <div className="rounded-md bg-red-50 p-4">
               <div className="flex">
@@ -72,10 +72,10 @@ const DeleteAccount: React.FC = () => {
                   </svg>
                 </div>
                 <div className="ml-3">
-                  <h3 className="text-sm font-medium text-red-800">{t('warning')}</h3>
+                  <h3 className="text-sm font-medium text-red-800">{t('profile.warning')}</h3>
                   <div className="mt-2 text-sm text-red-700">
-                    <p>{t('deleteAccountWarning')}</p>
-                    <p className="mt-2">{t('confirmDeleteAccount')}</p>
+                    <p>{t('profile.deleteAccountWarning')}</p>
+                    <p className="mt-2">{t('profile.confirmDeleteAccount')}</p>
                     <p className="mt-2 font-mono bg-red-100 p-2 rounded">{currentUser?.uid}</p>
                   </div>
                 </div>
@@ -95,7 +95,7 @@ const DeleteAccount: React.FC = () => {
             <div className="space-y-4">
               <div>
                 <label htmlFor="uuid" className="block text-sm font-medium text-gray-700 mb-1">
-                  {t('confirmUUID')}
+                  {t('profile.confirmUUID')}
                 </label>
                 <input
                   type="text"
@@ -116,7 +116,7 @@ const DeleteAccount: React.FC = () => {
                 className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
                 disabled={isSubmitting}
               >
-                {t('cancel')}
+                {t('ui.cancel')}
               </button>
               <button
                 type="submit"
@@ -129,10 +129,10 @@ const DeleteAccount: React.FC = () => {
                       <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                       <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                     </svg>
-                    {t('deleteAccount')}
+                    {t('profile.deleteAccount')}
                   </>
                 ) : (
-                  t('deleteAccount')
+                  t('profile.deleteAccount')
                 )}
               </button>
             </div>

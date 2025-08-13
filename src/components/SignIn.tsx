@@ -40,7 +40,7 @@ export default function SignIn() {
       await saveUserToFirestore(user, user.displayName || "", db);
       navigate(pages.dashboard);
     } catch (err) {
-      setError(t('failedSignIn'));
+      setError(t('auth.failedSignIn'));
     } finally {
       setLoading(false);
     }
@@ -55,7 +55,7 @@ export default function SignIn() {
       await saveUserToFirestore(user, user.displayName || "", db);
       navigate(pages.dashboard);
     } catch (err) {
-      setError(t('failedSignIn'));
+      setError(t('auth.failedSignIn'));
     } finally {
       setLoading(false);
     }
@@ -70,7 +70,7 @@ export default function SignIn() {
       await saveUserToFirestore(user, user.displayName || "", db);
       navigate(pages.dashboard);
     } catch (err) {
-      setError(t('failedSignIn'));
+      setError(t('auth.failedSignIn'));
     } finally {
       setLoading(false);
     }
@@ -85,7 +85,7 @@ export default function SignIn() {
       await saveUserToFirestore(user, user.displayName || "", db);
       navigate(pages.dashboard);
     } catch (err) {
-      setError(t('failedSignIn'));
+      setError(t('auth.failedSignIn'));
     } finally {
       setLoading(false);
     }
@@ -100,7 +100,7 @@ export default function SignIn() {
       await saveUserToFirestore(user, user.displayName || "", db);
       navigate(pages.dashboard);
     } catch (err) {
-      setError(t('failedSignIn'));
+      setError(t('auth.failedSignIn'));
     } finally {
       setLoading(false);
     }
@@ -115,7 +115,7 @@ export default function SignIn() {
       await saveUserToFirestore(user, user.displayName || "", db);
       navigate(pages.dashboard);
     } catch (err) {
-      setError(t('failedSignIn'));
+      setError(t('auth.failedSignIn'));
     } finally {
       setLoading(false);
     }
@@ -130,7 +130,7 @@ export default function SignIn() {
       await saveUserToFirestore(user, user.displayName || "", db);
       navigate(pages.dashboard);
     } catch (err) {
-      setError(t('failedSignIn'));
+      setError(t('auth.failedSignIn'));
     } finally {
       setLoading(false);
     }
@@ -140,7 +140,7 @@ export default function SignIn() {
     <div>
       <div>
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          {t('signInToAccount')}
+          {t('auth.signInToAccount')}
         </h2>
       </div>
       {error && <div className="text-red-500 text-center mt-2">{error}</div>}
@@ -148,7 +148,7 @@ export default function SignIn() {
         <div className="space-y-4">
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-              {t('email')}
+              {t('auth.email')}
             </label>
             <input
               id="email"
@@ -162,7 +162,7 @@ export default function SignIn() {
           </div>
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-              {t('password')}
+              {t('auth.password')}
             </label>
             <input
               id="password"
@@ -181,22 +181,22 @@ export default function SignIn() {
             type="submit"
             className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            {t('signInWithEmailAndPassword')}
+            {t('auth.providers.email')}
           </button>
         </div>
       </form>
       <div className="text-center mt-4">
         <p className="text-sm text-gray-600">
-          {t('dontHaveAccount')}{' '}
+          {t('auth.dontHaveAccount')}{' '}
           <Link to={pages.signUp} className="font-medium text-indigo-600 hover:text-indigo-500">
-            {t('signup')}
+            {t('auth.signup')}
           </Link>
         </p>
         <Link
           to={pages.resetPassword}
           className="text-sm text-indigo-600 hover:text-indigo-500"
         >
-          {t('forgotPassword')}
+          {t('auth.forgotPassword')}
         </Link>
       </div>
       <div className="mt-4 space-y-2">
@@ -205,7 +205,7 @@ export default function SignIn() {
             onClick={handleGoogleSignIn}
             className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
           >
-            {t('signInWithGoogle')}
+            {t('auth.providers.google')}
           </button>
         )}
         {socialLogin.microsoft && (
@@ -213,7 +213,7 @@ export default function SignIn() {
             onClick={handleMicrosoftSignIn}
             className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
           >
-            {t('signInWithMicrosoft')}
+            {t('auth.providers.microsoft')}
           </button>
         )}
         {socialLogin.facebook && (
@@ -221,7 +221,7 @@ export default function SignIn() {
             onClick={handleFacebookSignIn}
             className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600"
           >
-            {t('signInWithFacebook')}
+            {t('auth.providers.facebook')}
           </button>
         )}
         {socialLogin.apple && (
@@ -229,7 +229,7 @@ export default function SignIn() {
             onClick={handleAppleSignIn}
             className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-600"
           >
-            {t('signInWithApple')}
+            {t('auth.providers.apple')}
           </button>
         )}
         {socialLogin.github && (
@@ -237,7 +237,7 @@ export default function SignIn() {
             onClick={handleGitHubSignIn}
             className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-700"
           >
-            {t('signInWithGitHub')}
+            {t('auth.providers.github')}
           </button>
         )}
         {socialLogin.twitter && (
@@ -245,7 +245,7 @@ export default function SignIn() {
             onClick={handleTwitterSignIn}
             className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-400 hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-300"
           >
-            {t('signInWithTwitter')}
+            {t('auth.providers.twitter')}
           </button>
         )}
         {socialLogin.yahoo && (
@@ -253,7 +253,7 @@ export default function SignIn() {
             onClick={handleYahooSignIn}
             className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
           >
-            {t('signInWithYahoo')}
+            {t('auth.providers.yahoo')}
           </button>
         )}
       </div>

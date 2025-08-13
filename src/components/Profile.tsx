@@ -79,7 +79,7 @@ export default function Profile() {
     <div className="max-w-7xl mx-auto">
       <div className="bg-white shadow overflow-hidden sm:rounded-lg">
         <div className="px-4 py-5 sm:px-6">
-          <h2 className="text-lg font-medium text-gray-900">{t('userProfile')}</h2>
+          <h2 className="text-lg font-medium text-gray-900">{t('profile.title')}</h2>
           {message && (
             <div className="mt-4">
               <Message type={message.type}>{message.text}</Message>
@@ -117,7 +117,7 @@ export default function Profile() {
                     d="M11.25 11.25l.041-.02a.75.75 0 011.063.852l-.708 2.836a.75.75 0 001.063.853l.041-.021M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9-3.75h.008v.008H12V8.25z"
                   />
                 </svg>
-                {t('avatarSocialLoginHint')}
+                {t('profile.avatarSocialLoginHint')}
               </p>
             </div>
           </div>
@@ -127,13 +127,13 @@ export default function Profile() {
           <dl>
             {userData?.display_name && (
               <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">{t('fullName')}</dt>
+                <dt className="text-sm font-medium text-gray-500">{t('auth.fullName')}</dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex justify-between items-center">
                   {userData.display_name}
                   <Link 
                     to={pages.editName}
                     className="text-gray-400 hover:text-gray-500"
-                    title={t('editName')}
+                    title={t('profile.edit.name')}
                   >
                     <svg 
                       xmlns="http://www.w3.org/2000/svg" 
@@ -154,13 +154,13 @@ export default function Profile() {
               </div>
             )}
             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt className="text-sm font-medium text-gray-500">{t('email')}</dt>
+              <dt className="text-sm font-medium text-gray-500">{t('auth.email')}</dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex justify-between items-center">
                 {currentUser?.email}
                 <Link 
                   to={pages.editEmail}
                   className="text-gray-400 hover:text-gray-500"
-                  title={t('editEmail')}
+                  title={t('profile.edit.email')}
                 >
                   <svg 
                     xmlns="http://www.w3.org/2000/svg" 
@@ -180,14 +180,14 @@ export default function Profile() {
               </dd>
             </div>
             <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt className="text-sm font-medium text-gray-500">{t('emailVerified')}</dt>
+              <dt className="text-sm font-medium text-gray-500">{t('profile.emailVerified')}</dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex justify-between items-center">
-                <span>{currentUser?.emailVerified ? t('yes') : t('no')}</span>
+                <span>{currentUser?.emailVerified ? t('ui.yes') : t('ui.no')}</span>
                 <button
                   onClick={handleVerifyEmail}
                   disabled={isVerifying}
                   className="text-gray-400 hover:text-gray-500 disabled:opacity-50 disabled:cursor-not-allowed"
-                  title={currentUser?.emailVerified ? t('resendVerification') : t('verifyEmail')}
+                  title={currentUser?.emailVerified ? t('profile.resendVerification') : t('profile.verifyEmail')}
                 >
                   {isVerifying ? (
                     <svg
@@ -230,13 +230,13 @@ export default function Profile() {
               </dd>
             </div>
             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt className="text-sm font-medium text-gray-500">{t('password')}</dt>
+              <dt className="text-sm font-medium text-gray-500">{t('auth.password')}</dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 flex justify-between items-center">
                 <span>••••••</span>
                 <Link 
                   to={pages.changePassword}
                   className="text-gray-400 hover:text-gray-500"
-                  title={t('changePassword')}
+                  title={t('profile.edit.password')}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -256,14 +256,14 @@ export default function Profile() {
               </dd>
             </div>
             <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-              <dt className="text-sm font-medium text-gray-500">{t('userId')}</dt>
+              <dt className="text-sm font-medium text-gray-500">{t('profile.userId')}</dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 break-all">
                 {currentUser?.uid}
               </dd>
             </div>
             {userData?.create_time && (
               <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
-                <dt className="text-sm font-medium text-gray-500">{t('creationTime')}</dt>
+                <dt className="text-sm font-medium text-gray-500">{t('profile.creationTime')}</dt>
                 <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                   {userData.create_time.toDate().toLocaleString()}
                 </dd>
@@ -293,7 +293,7 @@ export default function Profile() {
                   d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
                 />
               </svg>
-              {t('deleteAccount')}
+              {t('profile.deleteAccount')}
             </Link>
           </div>
         </div>

@@ -23,12 +23,12 @@ const PasswordReset = ({ oobCode }: PasswordResetProps) => {
     e.preventDefault();
 
     if (newPassword !== confirmPassword) {
-      setError(t('passwordsNoMatch'));
+      setError(t('auth.passwordsNoMatch'));
       return;
     }
 
     if (newPassword.length < 6) {
-      setError(t('passwordMismatch'));
+      setError(t('profile.passwordMismatch'));
       return;
     }
 
@@ -37,20 +37,20 @@ const PasswordReset = ({ oobCode }: PasswordResetProps) => {
       setStatus('success');
     } catch (err) {
       setStatus('error');
-      setError(err instanceof Error ? err.message : t('passwordUpdateError'));
+      setError(err instanceof Error ? err.message : t('profile.passwordUpdateError'));
     }
   };
 
   if (status === 'success') {
     return (
       <div>
-        <Message type="success">{t('passwordUpdateSuccess')}</Message>
+        <Message type="success">{t('profile.passwordUpdateSuccess')}</Message>
         <div className="text-center mt-4">
           <Link
             to={pages.signIn}
             className="text-sm text-indigo-600 hover:text-indigo-500"
           >
-            {t('backToSignIn')}
+            {t('auth.backToSignIn')}
           </Link>
         </div>
       </div>
@@ -58,14 +58,14 @@ const PasswordReset = ({ oobCode }: PasswordResetProps) => {
   }
 
   if (status === 'error') {
-    return <Message type="error">{error || t('passwordUpdateError')}</Message>;
+    return <Message type="error">{error || t('profile.passwordUpdateError')}</Message>;
   }
 
   return (
     <div>
       <div>
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          {t('resetPassword')}
+          {t('auth.resetPassword')}
         </h2>
       </div>
       {error && <div className="text-red-500 text-center mt-2">{error}</div>}
@@ -73,7 +73,7 @@ const PasswordReset = ({ oobCode }: PasswordResetProps) => {
         <div className="space-y-4">
           <div>
             <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700">
-              {t('newPassword')}
+              {t('profile.newPassword')}
             </label>
             <input
               type="password"
@@ -87,7 +87,7 @@ const PasswordReset = ({ oobCode }: PasswordResetProps) => {
           </div>
           <div>
             <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
-              {t('confirmPassword')}
+              {t('auth.confirmPassword')}
             </label>
             <input
               type="password"
@@ -105,7 +105,7 @@ const PasswordReset = ({ oobCode }: PasswordResetProps) => {
             type="submit"
             className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            {t('resetPassword')}
+            {t('auth.resetPassword')}
           </button>
         </div>
       </form>
