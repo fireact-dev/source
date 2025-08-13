@@ -1,5 +1,5 @@
 export default {
-  languageName: "中文",
+  languageName: "简体中文",
   
   auth: {
     signin: "登录",
