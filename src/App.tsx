@@ -23,6 +23,7 @@ import zh from './i18n/zh';
 import de from './i18n/de';
 import zhtw from './i18n/zh-tw';
 import fr from './i18n/fr';
+import es from './i18n/es';
 import CreatePlan from './components/CreatePlan';
 import Home from './components/Home';
 import SubscriptionDashboard from './components/SubscriptionDashboard';
@@ -61,6 +62,9 @@ i18n
       },
       fr: {
         translation: fr
+      },
+      es: {
+        translation: es
       }
     },
     fallbackLng: 'en',
