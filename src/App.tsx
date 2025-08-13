@@ -20,6 +20,7 @@ import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import en from './i18n/en';
 import zh from './i18n/zh';
+import de from './i18n/de';
 import CreatePlan from './components/CreatePlan';
 import Home from './components/Home';
 import SubscriptionDashboard from './components/SubscriptionDashboard';
@@ -49,6 +50,9 @@ i18n
       },
       zh: {
         translation: zh
+      },
+      de: {
+        translation: de
       }
     },
     fallbackLng: 'en',
