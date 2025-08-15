@@ -35,7 +35,7 @@ function UpdateBillingForm() {
     const [elementsReady, setElementsReady] = useState(false);
     const [billingDetails, setBillingDetails] = useState<BillingDetails | null>(null);
     const [initializing, setInitializing] = useState(true);
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
     const navigate = useNavigate();
     const { subscription } = useSubscription();
     const { functions } = useConfig();
@@ -147,7 +147,7 @@ function UpdateBillingForm() {
                                 city: billingDetails?.address?.city || '',
                                 state: billingDetails?.address?.state || '',
                                 postal_code: billingDetails?.address?.postal_code || '',
-                                country: billingDetails?.address?.country || (i18n.language === 'zh' ? 'CN' : 'US'),
+                                country: billingDetails?.address?.country || 'US',
                             },
                         },
                     }}
@@ -183,7 +183,7 @@ export default function UpdateBillingDetails() {
     }
 
     const options = {
-        locale: (i18n.language === 'zh' ? 'zh' : 'en') as StripeElementLocale,
+        locale: t('stripeLocale') as StripeElementLocale,
         appearance: {
             theme: 'stripe' as const,
             labels: 'floating' as const,
