@@ -1,5 +1,6 @@
 export default {
   languageName: "한국어",
+  stripeLocale: "ko",
   
   auth: {
     signin: "로그인",

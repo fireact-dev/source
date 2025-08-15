@@ -173,7 +173,7 @@ function CheckoutForm({ plan, onSubmit }: { plan: Plan; onSubmit: BillingFormPro
 }
 
 export default function BillingForm({ plan, onSubmit }: BillingFormProps) {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const config = useConfig();
   console.log('Rendering BillingForm with plan:', plan);
 
@@ -186,7 +186,7 @@ export default function BillingForm({ plan, onSubmit }: BillingFormProps) {
     mode: 'subscription' as const,
     amount: plan.price * 100, // convert to cents
     currency: 'usd',
-    locale: (i18n.language === 'zh' ? 'zh' : 'en') as StripeElementLocale,
+    locale: t('stripeLocale') as StripeElementLocale,
     paymentMethodCreation: 'manual' as const,
     appearance: {
       theme: 'stripe' as const,

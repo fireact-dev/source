@@ -1,5 +1,6 @@
 export default {
   languageName: "简体中文",
+  stripeLocale: "zh",
   
   auth: {
     signin: "登录",

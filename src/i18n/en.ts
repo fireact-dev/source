@@ -1,5 +1,6 @@
 export default {
   languageName: "English",
+  stripeLocale: "en",
   
   auth: {
     signin: "Sign in",

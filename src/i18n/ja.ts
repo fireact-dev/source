@@ -1,5 +1,6 @@
 export default {
   languageName: "日本語",
+  stripeLocale: "ja",
   
   auth: {
     signin: "サインイン",
