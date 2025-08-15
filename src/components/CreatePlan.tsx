@@ -6,6 +6,7 @@ import { useConfig } from '../contexts/ConfigContext';
 import Plans from './common/Plans';
 import BillingForm from './common/BillingForm';
 import type { Plan } from '../types';
+import React from 'react';
 
 
 interface SubscriptionResponse {
@@ -14,7 +15,12 @@ interface SubscriptionResponse {
   customerId: string;
 }
 
-export default function CreatePlan() {
+interface CreatePlanProps {
+  PlansComponent?: React.ComponentType<{ onPlanSelect: (plan: Plan) => void }>;
+  BillingFormComponent?: React.ComponentType<{ plan: Plan; onSubmit: (paymentMethodId: string, billingDetails: any) => Promise<void> }>;
+}
+
+export default function CreatePlan({ PlansComponent, BillingFormComponent }: CreatePlanProps) {
   const [step, setStep] = useState<1 | 2>(1);
   const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -103,14 +109,13 @@ export default function CreatePlan() {
         )}
 
         {step === 1 && (
-          <Plans onPlanSelect={handlePlanSelect} />
+          PlansComponent ? <PlansComponent onPlanSelect={handlePlanSelect} /> : <Plans onPlanSelect={handlePlanSelect} />
         )}
 
         {step === 2 && selectedPlan && selectedPlan.price > 0 && (
-          <BillingForm 
-            plan={selectedPlan}
-            onSubmit={handleBillingSubmit}
-          />
+          BillingFormComponent ? 
+            <BillingFormComponent plan={selectedPlan} onSubmit={handleBillingSubmit} /> :
+            <BillingForm plan={selectedPlan} onSubmit={handleBillingSubmit} />
         )}
       </div>
     </div>

@@ -8,9 +8,15 @@ import Plans from './common/Plans';
 import BillingForm from './common/BillingForm';
 import { type Plan } from '../types';
 import { useSubscription } from '../contexts/SubscriptionContext';
+import React from 'react';
 
 
-export default function ChangePlan() {
+interface ChangePlanProps {
+    PlansComponent?: React.ComponentType<{ onPlanSelect: (plan: Plan) => void; currentPlanId?: string }>;
+    BillingFormComponent?: React.ComponentType<{ plan: Plan; onSubmit: (paymentMethodId: string, billingDetails: any) => Promise<void> }>;
+}
+
+export default function ChangePlan({ PlansComponent, BillingFormComponent }: ChangePlanProps) {
     const [step, setStep] = useState<1 | 2>(1);
     const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
     const [error, setError] = useState<string | null>(null);
@@ -143,17 +149,15 @@ export default function ChangePlan() {
                 )}
 
                 {step === 1 && (
-                    <Plans 
-                        onPlanSelect={handlePlanSelect}
-                        currentPlanId={subscription?.plan_id}
-                    />
+                    PlansComponent ? 
+                        <PlansComponent onPlanSelect={handlePlanSelect} currentPlanId={subscription?.plan_id} /> :
+                        <Plans onPlanSelect={handlePlanSelect} currentPlanId={subscription?.plan_id} />
                 )}
 
                 {step === 2 && selectedPlan && selectedPlan.price > 0 && (
-                    <BillingForm 
-                        plan={selectedPlan}
-                        onSubmit={handleBillingSubmit}
-                    />
+                    BillingFormComponent ?
+                        <BillingFormComponent plan={selectedPlan} onSubmit={handleBillingSubmit} /> :
+                        <BillingForm plan={selectedPlan} onSubmit={handleBillingSubmit} />
                 )}
             </div>
         </div>

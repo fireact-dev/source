@@ -30,6 +30,8 @@ import ko from './i18n/ko';
 import CreatePlan from './components/CreatePlan';
 import Home from './components/Home';
 import SubscriptionDashboard from './components/SubscriptionDashboard';
+import Plans from './components/common/Plans';
+import BillingForm from './components/common/BillingForm';
 import SubscriptionLayout from './layouts/SubscriptionLayout';
 import { SubscriptionDesktopMenu, SubscriptionMobileMenu } from './components/SubscriptionMenuItems';
 import { SubscriptionProvider } from './contexts/SubscriptionContext';
@@ -106,7 +108,7 @@ function App() {
                 <Route path={appConfig.pages.editEmail} element={<EditEmail />} />
                 <Route path={appConfig.pages.changePassword} element={<ChangePassword />} />
                 <Route path={appConfig.pages.deleteAccount} element={<DeleteAccount />} />
-                <Route path={appConfig.pages.createPlan} element={<CreatePlan />} />
+                <Route path={appConfig.pages.createPlan} element={<CreatePlan PlansComponent={Plans} BillingFormComponent={BillingForm} />} />
               </Route>
               
               <Route path={appConfig.pages.subscription} element={
@@ -145,7 +147,7 @@ function App() {
                 } />
                 <Route path={appConfig.pages.changePlan} element={
                   <ProtectedSubscriptionRoute requiredPermissions={['owner']}>
-                    <ChangePlan />
+                    <ChangePlan PlansComponent={Plans} BillingFormComponent={BillingForm} />
                   </ProtectedSubscriptionRoute>
                 } />
                 <Route path={appConfig.pages.cancelSubscription} element={
