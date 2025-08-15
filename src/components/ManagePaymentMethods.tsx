@@ -12,6 +12,7 @@ import {
     useStripe,
     useElements
 } from '@stripe/react-stripe-js';
+import type { StripeElementLocale } from '@stripe/stripe-js';
 
 
 interface PaymentMethod {
@@ -307,6 +308,7 @@ export default function ManagePaymentMethods() {
                         ) : setupIntent && (
                             <Elements stripe={stripePromise} options={{
                                 clientSecret: setupIntent.clientSecret,
+                                locale: t('stripeLocale') as StripeElementLocale,
                                 appearance: {
                                     theme: 'stripe'
                                 }
