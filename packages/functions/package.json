@@ -1,0 +1,42 @@
+{
+  "name": "@fireact.dev/functions",
+  "version": "0.0.1",
+  "description": "Firebase Cloud Functions for Fireact applications.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts --dts-resolve",
+    "prepare": "npm run build"
+  },
+  "keywords": [
+    "firebase",
+    "cloud-functions",
+    "functions"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fireact-dev/main"
+  },
+  "homepage": "https://fireact.dev",
+  "documentation": "https://fireact.dev/docs",
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "firebase-admin": "^12.0.0",
+    "firebase-functions": "^6.4.0",
+    "stripe": "^18.4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.6.2",
+    "tsup": "^8.0.2",
+    "stripe": "^18.4.0"
+  }
+}

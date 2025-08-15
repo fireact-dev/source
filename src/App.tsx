@@ -14,7 +14,9 @@ import DeleteAccount from './components/DeleteAccount';
 import AuthenticatedLayout from './layouts/AuthenticatedLayout';
 import PublicLayout from './layouts/PublicLayout';
 import Logo from './components/Logo';
+import firebaseConfig from './config/firebase.config.json';
 import appConfig from './config/app.config.json';
+import stripeConfig from './config/stripe.config.json';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
@@ -90,7 +92,7 @@ i18n
 function App() {
   return (
     <Router>
-      <ConfigProvider>
+      <ConfigProvider firebaseConfig={firebaseConfig.firebase} appConfig={appConfig} stripeConfig={stripeConfig.stripe}>
         <AuthProvider>
           <LoadingProvider>
             <Routes>

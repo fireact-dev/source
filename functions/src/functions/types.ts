@@ -1,3 +1,5 @@
+import * as FirebaseFirestore from 'firebase-admin/firestore';
+
 export interface UserDetails {
     id: string;
     email: string;

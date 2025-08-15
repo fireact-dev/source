@@ -20,7 +20,7 @@ interface BillingFormProps {
   onSubmit: (paymentMethodId: string, billingDetails: any) => Promise<void>;
 }
 
-function CheckoutForm({ plan, onSubmit }: { plan: Plan; onSubmit: BillingFormProps['onSubmit'] }) {
+function CheckoutForm({ onSubmit }: { onSubmit: BillingFormProps['onSubmit'] }) {
   const stripe = useStripe();
   const elements = useElements();
   const [error, setError] = useState<string | null>(null);
@@ -206,7 +206,7 @@ export default function BillingForm({ plan, onSubmit }: BillingFormProps) {
 
   return (
     <Elements stripe={stripePromise} options={options}>
-      <CheckoutForm plan={plan} onSubmit={onSubmit} />
+      <CheckoutForm onSubmit={onSubmit} />
     </Elements>
   );
 }
