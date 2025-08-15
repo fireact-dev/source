@@ -43,7 +43,6 @@ export default function CreatePlan({ PlansComponent, BillingFormComponent }: Cre
         });
         navigate(config.appConfig.pages.settings.replace(':id', subscriptionData.subscriptionId));
       } catch (err) {
-        console.error('Error creating subscription:', err);
         setError(t('subscription.createError'));
       } finally {
         setLoading(false);
@@ -73,12 +72,10 @@ export default function CreatePlan({ PlansComponent, BillingFormComponent }: Cre
       if (subscriptionData.clientSecret) {
         // Handle payment confirmation if needed
         // This would be implemented based on your payment flow
-        console.log('Payment confirmation needed');
       } else {
         navigate(config.appConfig.pages.settings.replace(':id', subscriptionData.subscriptionId));
       }
     } catch (err) {
-      console.error('Error creating subscription:', err);
       setError(t('subscription.createError'));
       throw err; // Re-throw to let BillingForm handle the error display
     } finally {

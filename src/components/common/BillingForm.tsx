@@ -30,16 +30,13 @@ function CheckoutForm({ plan, onSubmit }: { plan: Plan; onSubmit: BillingFormPro
 
   useEffect(() => {
     if (stripe && elements) {
-      console.log('Stripe and Elements initialized');
     }
   }, [stripe, elements]);
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    console.log('Form submitted', { plan });
 
     if (!stripe || !elements) {
-      console.log('Stripe or elements not initialized');
       return;
     }
 
@@ -76,7 +73,6 @@ function CheckoutForm({ plan, onSubmit }: { plan: Plan; onSubmit: BillingFormPro
       }
 
       const { value: addressData } = await addressElement.getValue();
-      console.log('Address data:', addressData);
 
       // Return payment method and billing details to parent
       await onSubmit(paymentMethod.id, addressData);
@@ -130,7 +126,6 @@ function CheckoutForm({ plan, onSubmit }: { plan: Plan; onSubmit: BillingFormPro
           onChange={(event) => {
             if (!elementsReady && event.complete) {
               setElementsReady(true);
-              console.log('Address element ready');
             }
           }}
         />
@@ -147,7 +142,6 @@ function CheckoutForm({ plan, onSubmit }: { plan: Plan; onSubmit: BillingFormPro
           }}
           onReady={() => {
             setElementsReady(true);
-            console.log('Payment element ready');
           }}
         />
       </div>
@@ -175,7 +169,6 @@ function CheckoutForm({ plan, onSubmit }: { plan: Plan; onSubmit: BillingFormPro
 export default function BillingForm({ plan, onSubmit }: BillingFormProps) {
   const { t, i18n } = useTranslation();
   const config = useConfig();
-  console.log('Rendering BillingForm with plan:', plan);
 
   // Initialize Stripe only once
   if (!stripePromise) {
