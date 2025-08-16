@@ -1,69 +1,109 @@
-# React + TypeScript + Vite
+# Fireact.dev Source Code
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repository contains the complete source code for the Fireact.dev project, including both the React frontend application and Firebase Cloud Functions backend code.
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The `/source` repository is the main development workspace for the fireact.dev framework. It contains all the source code, development tools, and configurations needed to build and test the complete SaaS application framework locally.
 
-## Expanding the ESLint configuration
+## Development Environment
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+This repository is configured for local development using:
+- **Firestore emulators** for local database testing and development
+- **Stripe CLI** for testing payment flows and webhook handling locally
+- **Firebase emulators** for authentication and cloud functions testing
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Project Structure
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+The repository follows a monorepo structure with the following key packages and directories:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Core Packages
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- **`packages/app/`**: The React application package
+  - Contains the main React frontend application
+  - Built with Vite, TypeScript, and TailwindCSS
+  - Includes all UI components, pages, and client-side logic
+  - Handles authentication, user management, and subscription interfaces
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **`packages/functions/`**: The Cloud Functions package
+  - Contains all backend logic and API endpoints
+  - Built with Firebase Cloud Functions and TypeScript
+  - Handles server-side operations, Stripe webhooks, and database operations
+  - Manages subscription logic and payment processing
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Additional Directories
+
+- **`functions/`**: Firebase Cloud Functions configuration and deployment files
+- **`src/`**: React application source code (main app entry point)
+- **`public/`**: Static assets for the React application
+- **`docs/`**: Component and layout documentation
+
+### Configuration Files
+
+- `firebase.json`: Firebase project configuration
+- `firestore.rules`: Firestore security rules
+- `firestore.indexes.json`: Database indexes configuration
+- `package.json`: Main project dependencies and scripts
+- `vite.config.ts`: Vite build configuration
+- `tailwind.config.js`: TailwindCSS configuration
+
+## Getting Started
+
+### Prerequisites
+- Node.js (v18 or higher)
+- Firebase CLI
+- Stripe CLI (for payment testing)
+
+### Development Setup
+
+1. **Install dependencies**:
+   ```bash
+   npm install
+   ```
+
+2. **Start Firebase emulators**:
+   ```bash
+   npm run emulators
+   ```
+
+3. **Start development server**:
+   ```bash
+   npm run dev
+   ```
+
+4. **Start Stripe CLI** (in a separate terminal):
+   ```bash
+   stripe listen --forward-to localhost:5001/your-project/us-central1/stripeWebhook
+   ```
+
+### Testing
+
+The development environment provides:
+- Local Firestore database with emulated data
+- Authentication emulator for user management testing
+- Local cloud functions for API testing
+- Stripe webhook testing via Stripe CLI
+
+## Tech Stack
+
+- **Frontend**: React 18, TypeScript, Vite, TailwindCSS
+- **Backend**: Firebase Cloud Functions, TypeScript
+- **Database**: Firebase Firestore
+- **Authentication**: Firebase Auth
+- **Payments**: Stripe
+- **Development**: Firebase Emulators, Stripe CLI
+
+## Documentation
+
+For detailed setup instructions, API documentation, and deployment guides, visit the main project documentation at [fireact.dev](https://fireact.dev).
+
+## Contributing
+
+This is the main development repository for fireact.dev. When contributing:
+1. Make changes in the appropriate package (`packages/app/` or `packages/functions/`)
+2. Test locally using the emulator suite
+3. Ensure all tests pass before submitting pull requests
+
+## License
+
+This project is open source and available under the [MIT License](../LICENSE).
