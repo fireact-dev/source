@@ -35,7 +35,7 @@ import SubscriptionDashboard from './components/SubscriptionDashboard';
 import Plans from './components/common/Plans';
 import BillingForm from './components/common/BillingForm';
 import SubscriptionLayout from './layouts/SubscriptionLayout';
-import { SubscriptionDesktopMenu, SubscriptionMobileMenu } from './components/SubscriptionMenuItems';
+import { SubscriptionDesktopMenu, SubscriptionMobileMenu } from './components/navigation/SubscriptionMenuItems';
 import { SubscriptionProvider } from './contexts/SubscriptionContext';
 import { MainDesktopMenu, MainMobileMenu } from './components/navigation/MainMenuItems';
 import Billing from './components/Billing';

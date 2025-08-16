@@ -1,8 +1,8 @@
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useConfig } from '../contexts/ConfigContext';
-import { useSubscription } from '../contexts/SubscriptionContext';
+import { useConfig } from '../../contexts/ConfigContext';
+import { useSubscription } from '../../contexts/SubscriptionContext';
 
 
 export const SubscriptionDesktopMenu = () => {

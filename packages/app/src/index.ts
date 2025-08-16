@@ -51,14 +51,12 @@ export { default as EditPermissionsModal } from "./components/EditPermissionsMod
 export { default as UserTable } from "./components/UserTable";
 
 // Navigation menu pieces (export defaults)
-export { default as DesktopMenuItems } from "./components/navigation/DesktopMenuItems";
 export { MainDesktopMenu, MainMobileMenu } from "./components/navigation/MainMenuItems";
-export { default as MobileMenuItems } from "./components/navigation/MobileMenuItems";
 export { default as PrivateRoute } from "./components/navigation/PrivateRoute";
 export { default as ProtectedSubscriptionRoute } from "./components/ProtectedSubscriptionRoute";
 
 // Subscription-specific menu items (named exports)
-export { SubscriptionDesktopMenu, SubscriptionMobileMenu } from "./components/SubscriptionMenuItems";
+export { SubscriptionDesktopMenu, SubscriptionMobileMenu } from "./components/navigation/SubscriptionMenuItems";
 
 // Utilities & UI helpers
 export { default as LanguageSwitcher } from "./components/LanguageSwitcher";

@@ -1,6 +1,6 @@
 {
   "name": "@fireact.dev/app",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "React components, contexts, hooks, layouts, and utilities for Fireact applications.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
