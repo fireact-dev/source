@@ -134,7 +134,7 @@ export default function AuthenticatedLayout({ desktopMenuItems, mobileMenuItems,
                         role="menuitem"
                         onClick={() => setIsDropdownOpen(false)}
                       >
-                        {t('myProfile')}
+                        {t('navigation.myProfile')}
                       </Link>
                       <button
                         onClick={() => {
@@ -144,7 +144,7 @@ export default function AuthenticatedLayout({ desktopMenuItems, mobileMenuItems,
                         className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                         role="menuitem"
                       >
-                        {t('signout')}
+                        {t('navigation.signout')}
                       </button>
                     </div>
                   </div>
@@ -169,13 +169,13 @@ export default function AuthenticatedLayout({ desktopMenuItems, mobileMenuItems,
                     : 'hover:bg-gray-700 hover:text-white'
                 }`}
               >
-                {t('myProfile')}
+                {t('navigation.myProfile')}
               </Link>
               <button
                 onClick={handleSignOut}
                 className="w-full text-left px-3 py-2 text-base font-medium hover:bg-gray-700 hover:text-white rounded-md"
               >
-                {t('signout')}
+                {t('navigation.signout')}
               </button>
             </div>
           </div>
