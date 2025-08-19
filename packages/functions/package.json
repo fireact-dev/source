@@ -1,6 +1,6 @@
 {
   "name": "@fireact.dev/functions",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Firebase Cloud Functions for Fireact applications.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -28,7 +28,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "peerDependencies": {
+  "dependencies": {
     "firebase-admin": "^12.7.0",
     "firebase-functions": "^6.4.0",
     "stripe": "^18.4.0"
@@ -36,7 +36,6 @@
   "devDependencies": {
     "@types/node": "^20.10.0",
     "typescript": "^5.6.2",
-    "tsup": "^8.0.2",
-    "stripe": "^18.4.0"
+    "tsup": "^8.0.2"
   }
 }
