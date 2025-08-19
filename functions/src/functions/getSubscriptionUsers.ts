@@ -1,4 +1,4 @@
-import { onCall, HttpsError } from 'firebase-functions/v2/https';
+import { https } from 'firebase-functions/v1';
 import { getAuth } from 'firebase-admin/auth';
 import { getFirestore } from 'firebase-admin/firestore';
 import type { UserDetails, SubscriptionUserDetails, SubscriptionData, UserData, InviteData } from './types';
@@ -8,14 +8,14 @@ const adminPermissions = Object.entries(global.saasConfig.permissions)
   .filter(([_, value]) => value.admin)
   .map(([key]) => key);
 
-export const getSubscriptionUsers = onCall(async (request) => {
-  const { subscriptionId, page = 1, pageSize = 10 } = request.data;
+export const getSubscriptionUsers = https.onCall(async (data, context) => {
+  const { subscriptionId, page = 1, pageSize = 10 } = data;
   const auth = getAuth();
   const db = getFirestore();
 
   // Verify authentication
-  if (!request.auth) {
-    throw new HttpsError('unauthenticated', 'User must be authenticated');
+  if (!context.auth) {
+    throw new https.HttpsError('unauthenticated', 'User must be authenticated');
   }
 
   try {
@@ -23,18 +23,18 @@ export const getSubscriptionUsers = onCall(async (request) => {
     const subscriptionDoc = await db.collection('subscriptions').doc(subscriptionId).get();
     
     if (!subscriptionDoc.exists) {
-      throw new HttpsError('not-found', 'Subscription not found');
+      throw new https.HttpsError('not-found', 'Subscription not found');
     }
 
     const subscriptionData = subscriptionDoc.data() as SubscriptionData;
     
     // Check if user has any admin permission level
     const hasAdminPermission = adminPermissions.some(permission => 
-      subscriptionData.permissions[permission]?.includes(request.auth!.uid)
+      subscriptionData.permissions[permission]?.includes(context.auth!.uid)
     );
     
     if (!hasAdminPermission) {
-      throw new HttpsError('permission-denied', 'User must have admin permission level');
+      throw new https.HttpsError('permission-denied', 'User must have admin permission level');
     }
 
     // Get all user IDs from permissions
@@ -113,9 +113,9 @@ export const getSubscriptionUsers = onCall(async (request) => {
 
   } catch (error) {
     console.error('Error in getSubscriptionUsers:', error);
-    if (error instanceof HttpsError) {
+    if (error instanceof https.HttpsError) {
       throw error;
     }
-    throw new HttpsError('internal', 'Internal server error');
+    throw new https.HttpsError('internal', 'Internal server error');
   }
 });
