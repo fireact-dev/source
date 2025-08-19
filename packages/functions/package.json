@@ -1,6 +1,6 @@
 {
   "name": "@fireact.dev/functions",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Firebase Cloud Functions for Fireact applications.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
