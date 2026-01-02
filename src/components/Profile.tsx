@@ -45,7 +45,7 @@ export default function Profile() {
         await sendEmailVerification(currentUser);
         setMessage({ 
           type: 'success', 
-          text: currentUser.emailVerified ? t('emailVerificationResent') : t('emailVerificationSent')
+          text: currentUser.emailVerified ? t('profile.emailVerificationResent') : t('profile.emailVerificationSent')
         });
       } catch (error: unknown) {
         console.error('Error sending verification email:', error);
@@ -53,13 +53,13 @@ export default function Profile() {
           if (error.code === 'auth/too-many-requests') {
             setMessage({ 
               type: 'error', 
-              text: t('emailVerificationTooManyRequests')
+              text: t('profile.emailVerificationTooManyRequests')
             });
           } else {
-            setMessage({ type: 'error', text: t('emailVerificationError') });
+            setMessage({ type: 'error', text: t('profile.emailVerificationError') });
           }
         } else {
-          setMessage({ type: 'error', text: t('emailVerificationError') });
+          setMessage({ type: 'error', text: t('profile.emailVerificationError') });
         }
       } finally {
         setIsVerifying(false);
