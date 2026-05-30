@@ -27,3 +27,6 @@ src/config/firebase.config.json
 src/config/stripe.config.json
 functions/src/config/stripe.config.json
 functions/lib
+
+# Worktrees for isolated feature work — never tracked.
+.worktree/
