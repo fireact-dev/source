@@ -52,3 +52,4 @@ export { deletePaymentMethod } from './functions/deletePaymentMethod';
 export { updateBillingDetails } from './functions/updateBillingDetails';
 export { getBillingDetails } from './functions/getBillingDetails';
 export { transferSubscriptionOwnership } from './functions/transferSubscriptionOwnership';
+export { getUserSubscriptions } from './functions/getUserSubscriptions';

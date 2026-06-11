@@ -23,31 +23,18 @@ export default function Home() {
   const type = t('subscription.singular').charAt(0).toUpperCase() + t('subscription.singular').slice(1);
   const plural = t('subscription.plural').charAt(0).toUpperCase() + t('subscription.plural').slice(1);
 
-  // Find the permission key that has default: true
-  const defaultPermission = Object.entries(config.appConfig.permissions).find(
-    ([_, value]) => value.default
-  )?.[0] || 'access';
-
   const loadData = async () => {
     if (!currentUser?.uid) return;
 
     setLoading(true);
     try {
+      const app = getApp();
+      const functions = getFunctions(app);
+      const getUserSubscriptions = httpsCallable<void, { subscriptions: Subscription[] }>(functions, 'getUserSubscriptions');
+      const subsResult = await getUserSubscriptions();
+      setSubscriptions(subsResult.data.subscriptions);
+
       const db = getFirestore();
-      
-      // Load subscriptions
-      const subsQuery = query(
-        collection(db, 'subscriptions'),
-        where(`permissions.${defaultPermission}`, 'array-contains', currentUser.uid)
-      );
-      
-      const subsSnapshot = await getDocs(subsQuery);
-      const subs = subsSnapshot.docs.map(doc => ({
-        id: doc.id,
-        ...doc.data()
-      } as Subscription));
-      
-      setSubscriptions(subs);
 
       // Load invites
       if (currentUser.email) {
