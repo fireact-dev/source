@@ -89,7 +89,7 @@ export default function UserTable({ users, onRefresh, subscriptionId }: UserTabl
 
         // Add "Owner" label only if this user is the subscription owner
         if (subscription?.owner_id === user.id) {
-            labels.unshift('Owner');
+            labels.unshift(t('subscription.users.owner'));
         }
 
         return labels;

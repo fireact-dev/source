@@ -17,6 +17,7 @@ export default {
     failedSignIn: "Échec de la connexion",
     failedSignUp: "Échec de la création de compte",
     passwordsNoMatch: "Les mots de passe ne correspondent pas",
+    passwordTooShort: "Le mot de passe doit comporter au moins 6 caractères",
     forgotPassword: "Mot de passe oublié ?",
     resetPassword: "Réinitialiser le mot de passe",
     sendResetEmail: "Envoyer l'e-mail de réinitialisation",

@@ -17,6 +17,7 @@ export default {
     failedSignIn: "登录失败",
     failedSignUp: "创建账户失败",
     passwordsNoMatch: "密码不匹配",
+    passwordTooShort: "密码必须至少6个字符",
     forgotPassword: "忘记密码？",
     resetPassword: "重置密码",
     sendResetEmail: "发送重置邮件",

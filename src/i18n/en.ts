@@ -17,6 +17,7 @@ export default {
     failedSignIn: "Failed to sign in",
     failedSignUp: "Failed to create an account",
     passwordsNoMatch: "Passwords do not match",
+    passwordTooShort: "Password must be at least 6 characters",
     forgotPassword: "Forgot Password?",
     resetPassword: "Reset Password",
     sendResetEmail: "Send Reset Email",

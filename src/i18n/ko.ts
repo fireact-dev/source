@@ -17,6 +17,7 @@ export default {
     failedSignIn: "로그인 실패",
     failedSignUp: "계정 생성 실패",
     passwordsNoMatch: "비밀번호가 일치하지 않습니다",
+    passwordTooShort: "비밀번호는 최소 6자 이상이어야 합니다",
     forgotPassword: "비밀번호를 잊으셨나요?",
     resetPassword: "비밀번호 재설정",
     sendResetEmail: "재설정 이메일 보내기",

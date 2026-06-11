@@ -28,7 +28,7 @@ const PasswordReset = ({ oobCode }: PasswordResetProps) => {
     }
 
     if (newPassword.length < 6) {
-      setError(t('profile.passwordMismatch'));
+      setError(t('auth.passwordTooShort'));
       return;
     }
 

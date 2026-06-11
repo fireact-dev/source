@@ -17,6 +17,7 @@ export default {
     failedSignIn: "Falha ao entrar",
     failedSignUp: "Falha ao criar uma conta",
     passwordsNoMatch: "As senhas não coincidem",
+    passwordTooShort: "A senha deve ter pelo menos 6 caracteres",
     forgotPassword: "Esqueceu a senha?",
     resetPassword: "Redefinir senha",
     sendResetEmail: "Enviar e-mail de redefinição",

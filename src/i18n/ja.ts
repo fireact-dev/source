@@ -17,6 +17,7 @@ export default {
     failedSignIn: "サインインに失敗しました",
     failedSignUp: "アカウントの作成に失敗しました",
     passwordsNoMatch: "パスワードが一致しません",
+    passwordTooShort: "パスワードは6文字以上である必要があります",
     forgotPassword: "パスワードをお忘れですか？",
     resetPassword: "パスワードをリセット",
     sendResetEmail: "リセットメールを送信",

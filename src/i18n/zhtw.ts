@@ -17,6 +17,7 @@ export default {
     failedSignIn: "登入失敗",
     failedSignUp: "建立帳戶失敗",
     passwordsNoMatch: "密碼不符",
+    passwordTooShort: "密碼必須至少6個字符",
     forgotPassword: "忘記密碼？",
     resetPassword: "重設密碼",
     sendResetEmail: "傳送重設密碼的電子郵件",
