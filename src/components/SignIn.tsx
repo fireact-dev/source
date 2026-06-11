@@ -25,7 +25,7 @@ export default function SignIn() {
       await signin(email, password);
       navigate(pages.dashboard);
     } catch (err) {
-      setError(t('failedSignIn'));
+      setError(t('auth.failedSignIn'));
     } finally {
       setLoading(false);
     }

@@ -17,6 +17,7 @@ export default {
     failedSignIn: "Anmeldung fehlgeschlagen",
     failedSignUp: "Kontoerstellung fehlgeschlagen",
     passwordsNoMatch: "Passwörter stimmen nicht überein",
+    passwordTooShort: "Das Passwort muss mindestens 6 Zeichen lang sein",
     forgotPassword: "Passwort vergessen?",
     resetPassword: "Passwort zurücksetzen",
     sendResetEmail: "E-Mail zum Zurücksetzen senden",
