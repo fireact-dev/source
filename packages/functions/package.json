@@ -1,6 +1,6 @@
 {
   "name": "@fireact.dev/functions",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Firebase Cloud Functions for Fireact applications.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
@@ -37,5 +37,8 @@
     "@types/node": "^20.10.0",
     "typescript": "^5.6.2",
     "tsup": "^8.0.2"
+  },
+  "overrides": {
+    "esbuild": "0.28.1"
   }
 }
