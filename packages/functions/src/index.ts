@@ -8,6 +8,7 @@ export * from "./functions/deletePaymentMethod";
 export * from "./functions/getBillingDetails";
 export * from "./functions/getPaymentMethods";
 export * from "./functions/getSubscriptionUsers";
+export * from "./functions/getUserSubscriptions";
 export * from "./functions/rejectInvite";
 export * from "./functions/removeUser";
 export * from "./functions/revokeInvite";
