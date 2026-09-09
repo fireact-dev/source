@@ -1,13 +1,12 @@
 {
   "name": "@fireact.dev/app",
-  "version": "1.0.9",
+  "version": "1.1.0",
   "description": "React components, contexts, hooks, layouts, and utilities for Fireact applications.",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "scripts": {
     "build": "tsup src/index.ts --format cjs,esm --dts",
